@@ -47,7 +47,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
               {
                     $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
                     "
-               <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion();'>
+               <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion(this);'>
                   Incribirse
                 </button>";
               }

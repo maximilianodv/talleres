@@ -110,14 +110,7 @@ class ControladorPublicidad extends Controlador
 			
 			$respuesta["datos"]=$this->inscripciones->insertar($inscripcion,$taller);	
 			
-		if($respuesta["datos"]==0||$respuesta["datos"]=="0")
-			{
-				
-				//$this->model->actualizacion($taller);
-				$respuesta["abc"]=$this->mostrar();	
-
-				
-			}
+			$respuesta["abc"]=$this->mostrar();	
 
 		}
 

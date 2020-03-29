@@ -1,14 +1,14 @@
-function inscripcion()
+function inscripcion(id)
 {
 	//var inscrip = document.getElementsByClassName('inscripcion');
-
+    var id=id.getAttribute("data-id");
 	const inscrip= document.querySelector('.inscripcion');
-	//alert(inscrip.dataset.id);
-	var aceptar = document.querySelector("#btnGuardar"); 
-	aceptar.setAttribute("data-id", inscrip.dataset.id);
-
+    var aceptar = document.querySelector("#btnGuardar"); 
+	aceptar.setAttribute("data-id",id);
+    aceptar.setAttribute("onclick","hola(this);");
+    alert("termina");
 }
-function hola()
+function hola(id)
 {
 
 const url = 'index.php?controlador=ControladorPublicidad&accion=inscribirperiodo';
@@ -20,9 +20,9 @@ const aceptar= document.querySelector('#btnGuardar');
 
 const sesion= document.querySelector('.sesion');
 var matricula=sesion.getAttribute("id");
-var idtaller=aceptar.dataset.id;
+var idtaller=id.getAttribute("data-id");
 
-
+alert(idtaller);
 console.log(carrera);
 console.log(grado);
 console.log(grupo);
@@ -33,10 +33,11 @@ http.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200)
     {
         var resultado = JSON.parse(this.responseText);
+        console.log("antes ");
         console.log(resultado.carrera);
         console.log(resultado.grado);
         console.log(resultado.grupo);
-        
+        console.log("justo antes del error ");
         console.log(resultado.matricula);
         console.log(resultado.datos);
         console.log(resultado.abc);
@@ -44,7 +45,7 @@ http.onreadystatechange = function(){
 
         document.getElementById("talleres").innerHTML = resultado.abc;
         var modal = document.getElementById("exampleModal");
-        modal.close();
+        //modal.close();
 
                // alert(this.responseText);
 

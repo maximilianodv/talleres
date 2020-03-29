@@ -1,0 +1,248 @@
+*
+{
+margin:0px;
+padding: 0px;
+}
+div#contenedor
+{
+	margin:auto;
+	width:1000px;
+	height:600px;
+	background-color:#CD5C5C;
+	border: 2px ;
+	border-radius:20px 20px 0px 0px;
+}
+
+div#encabezado h1
+{
+	text-align: center;
+}
+
+div#encabezado
+{
+	height:150px;
+	background-color: FF33A5;
+	border-radius: 20px 20px 0px 0px;
+	background-image: url("../../publicidad/imagenes/3.jpg");
+	text-align: center;
+	line-height: 150;
+	border: 2px solid black;
+}
+div#menu
+{
+  height: 40px;
+  background-color: #fff8f8;
+}
+div#contenido
+{
+    float:left;
+ 	width:800px;
+	height:400px;
+	background-color:#858e9a;
+}
+div#contenido h1
+{
+text-align: center;
+}
+div#panelder
+{
+	float:left;
+	width:200px;
+	height:400px;
+	font-family: Verdana;
+	font-size: 15px;
+	background-color:#426d73;
+	background-image: url("../../publicidad/imagenes/Pag1.jpg");
+}
+div#pie
+{
+float:left;
+width: 1000px;
+height: 96px;
+background-color: #426d73;
+}
+
+
+div#pie h2
+{
+	text-align: center;
+}
+
+#menuopc li
+{
+	text-align: center;
+	display: inline-block;
+	float: left;
+	list-style-type: none;
+	width: 100px;
+	height: 45px;
+	margin: 0px 20px;
+	line-height: 45px;
+	background-color:white;
+	text-shadow: rgb(10,255,255) 1px 1px 2px;
+	border-radius: 10px 10px 100px 100px;
+	font:  16px MiNuevaFuente, verdana, sans-serif;
+
+}
+div#encabezado h1
+{
+	text-align: center;
+}
+/**Contenido de pagina 2
+**/
+div#panelder2
+{
+	float:left;
+	width:200px;
+	height:400px;
+	font-family: Verdana;
+	font-size: 15px;
+	background-color:#426d73;
+	background-image: url("../../publicidad/imagenes/Pa3.jpg");
+}
+div#contenedor2
+{
+	margin:auto;
+	width:1000px;
+	height:600px;
+	background-color: white;
+	border: 2px ;
+	border-radius:20px 20px 0px 0px;
+}
+div#encabezado2
+{
+	height:150px;
+	background-color: white;
+	border-radius: 20px 20px 0px 0px;
+	text-align: center;
+	line-height: 150;
+	border: 2px solid black;
+	background-image: url("../../publicidad/imagenes/Pa2.jpg");
+}
+div#contenido2
+{
+    float:left;
+ 	width:800px;
+	height:400px;
+	background-color: #f0f7ed;
+}
+#menuopc2 li
+{
+	text-align: center;
+	display: inline-block;
+	float: left;
+	list-style-type: none;
+	width: 100px;
+	height: 45px;
+	margin: 0px 20px;
+	line-height: 45px;
+	background-color: white;
+	text-shadow: rgb(10,255,255) 1px 1px 2px;
+	border-radius: 10px 10px 100px 100px;
+	font:  16px MiNuevaFuente, verdana, sans-serif;
+}
+div#menu2
+{
+  height: 40px;
+  background-color: black;
+}
+div#pie2
+{
+float:left;
+width: 1000px;
+height: 96px;
+background-color: #343c3e;
+}
+
+/**Pagina 3  #343c3e #f0f7ed
+
+#9fe4db
+**/
+div#encabezadoTres
+{
+	height:150px;
+	background-color: white;
+	border-radius: 20px 20px 0px 0px;
+	text-align: center;
+	line-height: 150;
+	border: 2px solid black;
+	background-image: url("../../publicidad/imagenes/4.jpg");
+}
+div#contenidoTres
+{
+    float:left;
+ 	width:800px;
+	height:400px;
+	background-color: #f5fffe;
+}
+div#pieTres
+{
+	float:left;
+	width: 1000px;
+	height: 96px;
+	background-color: #343c3e;
+	background-image: url("../../publicidad/imagenes/4.jpg");
+}
+/**
+Css Pagina 3   background-image: url("../../publicidad/imagenes/4.jpg");
+**/
+div#contenedorPag3
+{
+	margin:auto;
+	width:1000px;
+	height:600px;
+	background-color: white;
+	border: 2px ;
+	border-radius:20px 20px 0px 0px;
+	background-image: url("../../publicidad/imagenes/Pag2.png");
+}
+div#menuPag3
+{
+  height: 40px;
+  background-color: white;
+}
+div#panelderPag3
+{
+	float:left;
+	width:200px;
+	height:400px;
+	font-family: Verdana;
+	font-size: 15px;
+	background-color:#426d73;
+	background-image: url("../../publicidad/imagenes/Pag2.png");
+}
+div#contenidoPag3
+{
+    float:left;
+ 	width:800px;
+	height:400px;
+	background-color: #7ba7a2;
+}
+div#piePag3
+{
+	float:left;
+	width: 1000px;
+	height: 96px;
+	background-color: #343c3e;
+	background-image: url("../../publicidad/imagenes/Pag2.png");
+}
+#menuopcPag3 li
+{
+	text-align: center;
+	display: inline-block;
+	float: left;
+	list-style-type: none;
+	width: 100px;
+	height: 45px;
+	margin: 0px 20px;
+	line-height: 45px;
+	background-color: blue;
+	text-shadow: rgb(10,255,255) 1px 1px 2px;
+	border-radius: 10px 10px 100px 100px;
+	font:  16px MiNuevaFuente, verdana, sans-serif;
+	background-image: url("../../publicidad/imagenes/Pag2.png");
+}
+#pagina
+{
+	background-color:#000;
+}

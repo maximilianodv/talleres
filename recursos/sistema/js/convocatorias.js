@@ -19,7 +19,77 @@ $(document).ready(function()
 			
 		});
 
-	$("#tfMax").on("keypress",function()
+	$(".btnEditar").on("click",function()
+	{
+		var clave=$(this).attr("data-clave");
+
+					var comboreal=clave.substring(4,clave.length);
+					
+					/*var $cbper = $('#cbPeriodoEd');
+					$cbper.attr("selected",false);*/
+					$("#cbPeriodoEd option[value='912']").attr("selected",false);
+					$("#cbPeriodoEd option[value='14']").attr("selected",false);
+					$("#cbPeriodoEd option[value='58']").attr("selected",false);
+					$("#cbPeriodoEd option[value='"+comboreal+"']").attr("selected", true);
+
+					var form=document.getElementById("form_convedit");
+					
+					form.style.visibility = "hidden";						
+
+					cargandoed.style.display="inline";
+
+					$.ajax
+					({
+						url:"index.php",
+						data:"controlador=ControladorConvocatorias&accion=buscar&idconvocatoria="+clave,
+						type:"GET",
+				 		success: function(data)
+				 		{
+		        		console.log("Enviado");
+
+		        		//alert("se envio"+clave)
+		        		//alert('Data from the server' + data);
+		      			},
+		      			error: function()
+		      			{
+		        		alert('Error en el envio de datos');
+		      			}
+					}).done(function(resultados)
+					{
+
+						console.log(resultados);
+						let fechainicio=document.getElementById("tfFechaConvocatoriaEd");
+						fechainicio.value=resultados.fecha;
+						//var objeto=JSON.parse(resultados);
+						//$('#content').fadeIn(1000).html(data);
+
+						
+					}).then(exito, fracaso);
+
+					
+						function exito()
+						{
+
+							form.style.visibility ="";						
+
+							cargandoed.style.display="none";
+							
+							//alert(resultados["periodo"]);
+							//var objeto=JSON.parse(resultados);
+							//console.log(objeto);
+						}
+						function fracaso()
+						{
+							alert("error al recibir datos");
+						}
+					
+	});
+
+	
+ 
+});
+
+$("#tfMax").on("keypress",function()
 	{	
 		//alert("abcdooo");
 	});
@@ -267,122 +337,7 @@ $("#mensaje").html("Confirmar Eliminación");
 
 			
 	});
-	$(".btnEditar").on("click",function()
-	{
-		var clave=$(this).attr("data-clave");
-
-					var comboreal=clave.substring(4,clave.length);
-					
-					/*var $cbper = $('#cbPeriodoEd');
-					$cbper.attr("selected",false);*/
-					$("#cbPeriodoEd option[value='912']").attr("selected",false);
-					$("#cbPeriodoEd option[value='14']").attr("selected",false);
-					$("#cbPeriodoEd option[value='58']").attr("selected",false);
-					$("#cbPeriodoEd option[value='"+comboreal+"']").attr("selected", true);
-
-					var form=document.getElementById("form_convedit");
-					
-					form.style.visibility = "hidden";						
-
-					cargandoed.style.display="inline";
-
-					$.ajax
-					({
-						url:"index.php",
-						data:"controlador=ControladorConvocatorias&accion=buscar&idconvocatoria="+clave,
-						type:"GET",
-				 		success: function(data)
-				 		{
-		        		console.log("Enviado");
-
-		        		//alert("se envio"+clave)
-		        		//alert('Data from the server' + data);
-		      			},
-		      			error: function()
-		      			{
-		        		alert('Error en el envio de datos');
-		      			}
-					}).done(function(resultados)
-					{
-
-						
-						//var objeto=JSON.parse(resultados);
-						//$('#content').fadeIn(1000).html(data);
-
-						
-					}).then(exito, fracaso);
-
-					
-						function exito()
-						{
-
-							form.style.visibility ="";						
-
-							cargandoed.style.display="none";
-							console.log(resultados["periodo"]);
-							alert(resultados["periodo"]);
-							//var objeto=JSON.parse(resultados);
-							//console.log(objeto);
-						}
-						function fracaso()
-						{
-							alert("error al recibir datos");
-						}
-					
-	});
-	/*$("#form_instr").on("submit", function()
- 	{
- 		var nombre=$('#tfNombre').val();
-		var apellidop=$('#tfApellidoP').val();
-		var apellidom=$('#tfApellidoM').val();
-		var correo=$('#tfCorreo').val();
-		var telefono=$('#tfTelefono').val();
-		var taller=$('#tfTaller').val();
-		var horas=$('#tfHoras').val();
-		var password=$('#tfPassword').val();
-		var convocatoria=$("#tfConvocatoria").val();
-		var datos={"nombre":nombre,"apellidop":apellidop,"apellidom":apellidom,"correo":correo,"telefono":telefono,"taller":taller,"horas":horas,"password":password,"convocatoria":convocatoria};
-		
- 		$.ajax
-		    ({
-			   	url:"index.php?controlador=ControladorInstructores&accion=uno",
-				data:datos,
-				type:"POST",
-				success: function(data)
-			 		{
-	        		//alert('Registro Guardado');
-	        		console.log("Enviado");
-	        		//alert('Data from the server' + data);
-	      			},
-	      		error: function()
-	      			{
-	        		//alert('Error en el envio de datos');
-	        		console.log("Error en el envio de datos");
-	      			}
-			}).done(function(resultados)
-		    {
-		    	
-		    	$("#resultados").html(resultados);
-		    	$('#artAgregadoExitoso').show(200).delay(1500).hide(200);
-		    	$("#form_instr")[0].reset();
-		    	
-		    	$('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    });
-		    });
-			return false;
-
- 	});*/
- 
-});
-
-
-
+	
 
 
    

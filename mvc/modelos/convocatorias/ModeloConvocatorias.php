@@ -22,25 +22,13 @@ class ModeloConvocatorias extends ConexionBD
     $this->modeloespacio=$modeloesp;
       //
     $clavecuatri="";
-  //  $this->espacios=new Espacio();
-   // $this->espacios->setClaveNivel("SSS");
-    //echo $this->espacios->getClaveNivel();
     $verificarinsert=0; 
     
         $niveles[0] ="TSU";
         $niveles[1] ="ING";
-        
-        /*
-        $min[0]=1;
-        $max[0]=5;
-        $min[1]=3;
-        $max[1]=8;
-        */
-
     $this->conexion->autocommit(FALSE);
 
       $verificarinsert=$verificarinsert+$this->insertarconvocatoria($convocatoria);
-      //echo $verificarinsert;
       $tamaño=count($cuatrimestre);
       for ($i=0; $i <$tamaño; $i++)
       { 

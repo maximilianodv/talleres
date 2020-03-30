@@ -87,6 +87,64 @@ class ControladorConvocatorias extends Controlador
 		$estado=$_GET["nuevoestado"];
 		$this->model->cambiarestado($convocatoria,$estado);
 	}
+	public function modificar()
+	{
+		$periodo=$_POST["periodo"];
+		$anio=$_POST["anio"];
+	    $min=$_POST["min"];
+	    $max=$_POST["max"];
+	   	$apertura=$_POST["apertura"];
+	   	$claveper=$_POST["claveper"];
+	   	$finconvocatoria=$_POST["finconvocatoria"];
+	   	$inicioprg=$_POST["inicioprg"];
+	   	$finprg=$_POST["finprg"];
+	   	$id=$_POST["id"];
+	   	/*$minfrm = array();
+	   	$maxfrm=array();*/
+	   	$minfrm[0]=$min;
+        $maxfrm[0]=$max;
+
+        $minfrm[1]=$_POST["mining"];
+        $maxfrm[1]=$_POST["maxing"];
+	   	$ClaveConvocatoria=$anio.$claveper;
+	   	$cuatrimestre;
+	   	
+		
+		
+	   	switch ($claveper)
+	   		{
+			    case 912:
+			        	$cuatrimestre[0] =1;
+						$cuatrimestre[1] =4;
+						$cuatrimestre[2] =7;
+						$cuatrimestre[3] =10;
+					break;
+			    case 14:
+			    		$cuatrimestre[0] = 2;
+						$cuatrimestre[1] =5;
+						$cuatrimestre[2] =8;
+					break;
+			    case 58:
+			    		$cuatrimestre[0] =3;
+						$cuatrimestre[1] =9;
+					break;
+
+			    case null:
+			    		$cuatrimestre= array(15,16);
+			    	break;
+			}
+	   	
+	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
+
+	   	$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
+
+
+
+	   	$this->model->insertar($convocatoria,$grado,$cuatrimestre,$this->modeloespacios,$minfrm,$maxfrm);
+
+	   	echo $this->model->tblConvocatorias();
+	}
+
 	public function eliminar()
 	{
 		$id=$_GET["idconvocatoria"];

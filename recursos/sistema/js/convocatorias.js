@@ -125,43 +125,60 @@ $("#tfMax").on("keypress",function()
 		var min=$('#tfMin').val();
 		var max=$('#tfMax').val();
 		var claveper=$('#cbPeriodo').val();
-
-		//alert("minimo");
-		//alert(min);
-		//alert("maximo");
-		//alert(max);
-		//var claveper=$('#cbPeriodo').attr("data-clvper");
 		var periodo = $('#cbPeriodo option:selected').text();
 		var finconvocatoria=$('#tfFinCnv').val();
 		var inicioprg=$('#tfInicioPrg').val();
 		var finprg=$('#tfFinPrg').val();
 		var mining=$("#tfMinING").val();
 		var maxing=$("#tfMaxING").val();
-
-			//alert("minimo");
-		//alert(min);
-		//alert("maximo");
-		//alert(max);
-			//alert("ingminimo");
-		//alert(mining);
-		//alert("ingmaximo");
-		//alert(maxing);
 		var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
 
-		console.log(finconvocatoria);
-		console.log(inicioprg);
-		console.log(finprg);
-		
-		/*alert(apertura);
-		alert(anio);
-		alert(min);
-		alert(max);
-		alert(claveper);
-		//var claveper=$('#cbPeriodo').attr("data-clvper");
-		alert(periodo);
-		alert(finconvocatoria);*/
-		
 
+		$.ajax
+		({
+			url:"index.php?controlador=ControladorConvocatorias&accion=registrar",
+			data:datos,
+			type:"POST",
+			success: function(data)
+		 		{        		//alert('Registro Guardado');
+        		console.log("Enviado");
+        		},
+      		error: function()
+      			{
+        		
+        		console.log("Error en el envio de datos");
+      			}
+
+		}).done(function(resultados)
+		{
+			
+			$("#resultados").html(resultados);
+			$.getScript( "recursos/sistema/js/convocatorias.js");
+	
+		});	
+
+		return false;
+
+	});
+
+		$("#form_convedit").on("submit",function()
+	{
+		
+		var apertura=$('#tfFechaConvocatoria').val();
+		var anio=$('#tfAnio').val();
+		var min=$('#tfMin').val();
+		var max=$('#tfMax').val();
+		var claveper=$('#cbPeriodo').val();
+		var periodo = $('#cbPeriodo option:selected').text();
+		var finconvocatoria=$('#tfFinCnv').val();
+		var inicioprg=$('#tfInicioPrg').val();
+		var finprg=$('#tfFinPrg').val();
+		var mining=$("#tfMinING").val();
+		var maxing=$("#tfMaxING").val();
+		var id="";
+		var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
+
+		
 		$.ajax
 		({
 			url:"index.php?controlador=ControladorConvocatorias&accion=registrar",
@@ -357,6 +374,8 @@ $("#mensaje").html("Confirmar Eliminación");
 			
 	});
 	
+function modificar(){
 
+}
 
    

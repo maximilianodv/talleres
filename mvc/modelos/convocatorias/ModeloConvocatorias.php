@@ -395,7 +395,7 @@ class ModeloConvocatorias extends ConexionBD
         
         $convocatoria=$row["ClaveConvocatoria"];
         $periodo=$row['Periodo'];
-        $año=$row['Año'];
+        $anio=$row['Año'];
         $fecha=$row["ConvocatoriaFecha"];
         $cierre=$row["CierreConvocatoria"];
         $prginicio=$row["ProrrogaInicio"];
@@ -419,7 +419,7 @@ class ModeloConvocatorias extends ConexionBD
        
        $respuesta['convocatoria']=$convocatoria;
        $respuesta['periodo']=$periodo;
-       $respuesta['Año']=$año;
+       $respuesta['anio']=$anio;
        $respuesta['fecha']=$fecha;
        $respuesta['cierre']=$cierre;
        $respuesta['prginicio']=$prginicio;

@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                   <label for="tfMinINGEd">Minimo</label>
-                                  <input type="number" class="form-control" min="0" max="100" id="tfMinINGEn" required="true">
+                                  <input type="number" class="form-control" min="0" max="100" id="tfMinINGEd" required="true">
                                 </div>
                             </div>
                         <div class="form-row">

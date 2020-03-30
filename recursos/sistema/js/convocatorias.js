@@ -59,8 +59,27 @@ $(document).ready(function()
 
 						console.log(resultados);
 						let fechainicio=document.getElementById("tfFechaConvocatoriaEd");
-						fechainicio.value=resultados.fecha;
-						//var objeto=JSON.parse(resultados);
+						let fechafin=document.getElementById("tfFinCnvEd");
+						let maxtsu=document.getElementById("tfMaxEd");
+						let mintsu=document.getElementById("tfMinEd");
+						let maxing=document.getElementById("tfMaxINGEd");
+						let mining=document.getElementById("tfMinINGEd");
+						let inicioprg=document.getElementById("tfInicioPrgEd");
+						let finprg=document.getElementById("tfFinPrgEd");
+						//let periodo=document.getElementById("cbPeriodoEd");
+
+						var objeto=JSON.parse(resultados);
+						//alert(objeto.fecha);
+						fechainicio.value=objeto.fecha;
+						fechafin.value=objeto.cierre;
+						maxtsu.value=objeto.esptsumax;
+						mintsu.value=objeto.esptsumin;
+						maxing.value=objeto.espingmax;
+						mining.value=objeto.espingmin;	
+						inicioprg.value=objeto.prginicio;
+						finprg.value=objeto.prgfin;
+
+
 						//$('#content').fadeIn(1000).html(data);
 
 						

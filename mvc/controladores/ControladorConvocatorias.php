@@ -157,6 +157,10 @@ class ControladorConvocatorias extends Controlador
 		$id=$_GET["idconvocatoria"];
 		echo json_encode($this->model->consulta($id));
 	}
+	public function buscarmodclvper(){
+		$id=$_POST["claveper"];
+		echo json_encode($this->model->consulta($id,"modificar"));	
+	}
 
 	
 

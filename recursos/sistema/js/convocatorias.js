@@ -21,7 +21,7 @@ $(document).ready(function()
 
 	$(".btnEditar").on("click",function()
 	{
-		var clave=$(this).attr("data-clave");
+					var clave=$(this).attr("data-clave");
 
 					var comboreal=clave.substring(4,clave.length);
 					
@@ -66,6 +66,10 @@ $(document).ready(function()
 						let mining=document.getElementById("tfMinINGEd");
 						let inicioprg=document.getElementById("tfInicioPrgEd");
 						let finprg=document.getElementById("tfFinPrgEd");
+						let btnguardar=document.getElementById("btnGuardarMod");
+						console.log(btnguardar);
+						btnguardar.setAttribute("data-idmod",clave);
+
 						//let periodo=document.getElementById("cbPeriodoEd");
 
 						var objeto=JSON.parse(resultados);
@@ -165,23 +169,31 @@ $("#tfMax").on("keypress",function()
 	{
 		
 		var apertura=$('#tfFechaConvocatoria').val();
-		var anio=$('#tfAnio').val();
-		var min=$('#tfMin').val();
-		var max=$('#tfMax').val();
-		var claveper=$('#cbPeriodo').val();
-		var periodo = $('#cbPeriodo option:selected').text();
-		var finconvocatoria=$('#tfFinCnv').val();
-		var inicioprg=$('#tfInicioPrg').val();
-		var finprg=$('#tfFinPrg').val();
-		var mining=$("#tfMinING").val();
-		var maxing=$("#tfMaxING").val();
-		var id="";
-		var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
+		var idold=document.getElementById("btnGuardarMod").getAttribute("data-idmod");
+		alert(idold);
+		var min=$('#tfMinEd').val();
+		var max=$('#tfMaxEd').val();
+		var claveper=$('#cbPeriodoEd').val();
+		var periodo = $('#cbPeriodoEd option:selected').text();
+		var finconvocatoria=$('#tfFinCnvEd').val();
+		var inicioprg=$('#tfInicioPrgEd').val();
+		var finprg=$('#tfFinPrgEd').val();
+		var mining=$("#tfMinINGEd").val();
+		var maxing=$("#tfMaxINGEd").val();
+		var anio=inicioprg.substring(0,4);
+		var idnew=anio+claveper;
+		alert(idnew+"Este es el id nuevo");
+		alert(idold+"Este es el id viejo");
+		buscarmodclvper(idnew);
+
+
+		return false;
+		/*var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
 
 		
 		$.ajax
 		({
-			url:"index.php?controlador=ControladorConvocatorias&accion=registrar",
+			url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
 			data:datos,
 			type:"POST",
 			success: function(data)
@@ -202,7 +214,7 @@ $("#tfMax").on("keypress",function()
 	
 		});	
 
-		return false;
+		*/
 
 	});
 
@@ -376,6 +388,39 @@ $("#mensaje").html("Confirmar Eliminación");
 	
 function modificar(){
 
+}
+function buscarmodclvper(claveper1){
+	alert("pasa por aqui")
+	var claveper=claveper1;
+	var regreso;
+	var datos={"claveper":claveper};
+	$.ajax
+		({
+			url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
+			data:datos,
+			type:"POST",
+			success: function(data)
+		 		{        		//alert('Registro Guardado');
+        		console.log("Enviado");
+        		},
+      		error: function()
+      			{
+        		
+        		console.log("Error en el envio de datos");
+      			}
+
+		}).done(function(resultados)
+		{
+			//console.log(resultados);
+
+			var objeto=JSON.parse(resultados);
+			console.log(objeto.encontrado);
+			
+			regreso=objeto.encontrado;
+	
+		});
+
+		return regreso;
 }
 
    

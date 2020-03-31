@@ -375,10 +375,14 @@ class ModeloConvocatorias extends ConexionBD
         $this->conexion->rollback();
       }
   }
-  public function consulta($clave)
+  public function consulta($clave,$tipo=null)
   {
+    
     $buscar="SELECT * FROM CONVOCATORIAS  WHERE ClaveConvocatoria='{$clave}'";
-         $this->resultados=$this->conexion->query($buscar);
+    $valor=$this->resultados=$this->conexion->query($buscar);
+      
+
+
       $row=$this->resultados->fetch_array();
         
         $convocatoria=$row["ClaveConvocatoria"];
@@ -388,6 +392,7 @@ class ModeloConvocatorias extends ConexionBD
         $cierre=$row["CierreConvocatoria"];
         $prginicio=$row["ProrrogaInicio"];
         $prgfin=$row["ProrrogaFin"];
+        $respuesta["encontrado"]="false";
       //$usuario->setId_Usuario($id_usuario);
       //
       $buscarespaciostsu="SELECT * FROM ESPACIOS WHERE ClaveConvocatoria='{$clave}' AND ClaveNivel='TSU'";
@@ -402,9 +407,13 @@ class ModeloConvocatorias extends ConexionBD
       	$espingmin=$row3["Min"];
       	$espingmax=$row3["Max"];
       
-
-      
-       
+        if($tipo!=null&&$convocatoria!=null){
+            $respuesta["encontrado"]="true";
+        }
+        elseif ($convocatoria==null) {
+          $respuesta["encontrado"]="false";
+        }
+        
        $respuesta['convocatoria']=$convocatoria;
        $respuesta['periodo']=$periodo;
        $respuesta['anio']=$anio;
@@ -417,8 +426,13 @@ class ModeloConvocatorias extends ConexionBD
        $respuesta['espingmin']=$espingmin;
        $respuesta['espingmax']=$espingmax;
 
+      
+        
+        
+        return $respuesta;    
+      
 
-      return $respuesta;
+      
       	//return $convocatoria;
 
 

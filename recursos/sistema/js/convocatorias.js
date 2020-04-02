@@ -184,8 +184,22 @@ $("#tfMax").on("keypress",function()
 		var idnew=anio+claveper;
 		alert(idnew+"Este es el id nuevo");
 		alert(idold+"Este es el id viejo");
-		buscarmodclvper(idnew);
+		
+		
 
+					
+		let miPrimeraPromise = new Promise((resolve, reject) => {
+			  // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
+			  // En este ejemplo, usamos setTimeout(...) para simular código asíncrono. 
+			  // En la vida real, probablemente uses algo como XHR o una API HTML5.
+			  resolve(idnew); // ¡Todo salió bien!
+			});
+
+			miPrimeraPromise.then((buscarmodclvper) => {
+			  // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
+			  // No tiene por qué ser un string, pero si solo es un mensaje de éxito, probablemente lo sea.
+			  console.log(buscarmodclvper);
+			});
 
 		return false;
 		/*var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
@@ -402,6 +416,7 @@ function buscarmodclvper(claveper1){
 			success: function(data)
 		 		{        		//alert('Registro Guardado');
         		console.log("Enviado");
+
         		},
       		error: function()
       			{
@@ -417,6 +432,7 @@ function buscarmodclvper(claveper1){
 			console.log(objeto.encontrado);
 			
 			regreso=objeto.encontrado;
+			return regreso;
 	
 		});
 

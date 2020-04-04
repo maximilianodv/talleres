@@ -182,24 +182,89 @@ $("#tfMax").on("keypress",function()
 		var maxing=$("#tfMaxINGEd").val();
 		var anio=inicioprg.substring(0,4);
 		var idnew=anio+claveper;
+		var encontrado="";
 		alert(idnew+"Este es el id nuevo");
 		alert(idold+"Este es el id viejo");
 		
 		
+		var datos={"claveper":idnew};
+		$.ajax
+		({
+			url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
+			data:datos,
+			type:"POST",
+			success: function(data)
+		 		{        		//alert('Registro Guardado');
+        		console.log("Enviado");
 
-					
-		let miPrimeraPromise = new Promise((resolve, reject) => {
+        		},
+      		error: function()
+      			{
+        		
+        		console.log("Error en el envio de datos");
+      			}
+
+		}).done(function(resultados)
+		{
+			//console.log(resultados);
+
+			var objeto=JSON.parse(resultados);
+			console.log(objeto.encontrado);
+			if(objeto.encontrado==true||objeto.encontrado=="true"){
+				alert("la convocatoria ya existe");
+				
+			}
+		}).then(function(r){
+				console.log(r);
+				if(objeto.encontrado!=true||objeto.encontrado!="true")
+				{
+					alert("se puede modificarr");
+	/*						$.ajax
+					({
+						url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
+						data:datos,
+						type:"POST",
+						success: function(data)
+					 		{        		//alert('Registro Guardado');
+			        		console.log("Enviado");
+
+			        		},
+			      		error: function()
+			      			{
+			        		
+			        		console.log("Error en el envio de datos");
+			      			}
+
+					}).done(function(resultados)
+					{
+						//console.log(resultados);
+
+						var objeto=JSON.parse(resultados);
+						console.log(objeto.encontrado);
+						if(objeto.encontrado==true||objeto.encontrado=="true"){
+							alert("la convocatoria ya existe");
+						}
+					});	*/
+				}
+				
+			});
+
+		
+		/*let modificarr=new Promise((resolve, reject) => {
 			  // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
 			  // En este ejemplo, usamos setTimeout(...) para simular código asíncrono. 
 			  // En la vida real, probablemente uses algo como XHR o una API HTML5.
-			  resolve(idnew); // ¡Todo salió bien!
+			  resolve(o); // ¡Todo salió bien!
 			});
 
-			miPrimeraPromise.then((buscarmodclvper) => {
+		modificarr.then((miPrimeraPromise) => {
 			  // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
 			  // No tiene por qué ser un string, pero si solo es un mensaje de éxito, probablemente lo sea.
-			  console.log(buscarmodclvper);
-			});
+			  miPrimeraPromise();
+				
+			});*/
+
+//		modificar();
 
 		return false;
 		/*var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
@@ -401,42 +466,5 @@ $("#mensaje").html("Confirmar Eliminación");
 	});
 	
 function modificar(){
-
+	alert("en modificar");
 }
-function buscarmodclvper(claveper1){
-	alert("pasa por aqui")
-	var claveper=claveper1;
-	var regreso;
-	var datos={"claveper":claveper};
-	$.ajax
-		({
-			url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
-			data:datos,
-			type:"POST",
-			success: function(data)
-		 		{        		//alert('Registro Guardado');
-        		console.log("Enviado");
-
-        		},
-      		error: function()
-      			{
-        		
-        		console.log("Error en el envio de datos");
-      			}
-
-		}).done(function(resultados)
-		{
-			//console.log(resultados);
-
-			var objeto=JSON.parse(resultados);
-			console.log(objeto.encontrado);
-			
-			regreso=objeto.encontrado;
-			return regreso;
-	
-		});
-
-		return regreso;
-}
-
-   

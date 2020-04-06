@@ -168,19 +168,22 @@ $("#tfMax").on("keypress",function()
 		$("#form_convedit").on("submit",function()
 	{
 		
-		var apertura=$('#tfFechaConvocatoria').val();
+		var apertura=$('#tfFechaConvocatoriaEd').val();
 		var idold=document.getElementById("btnGuardarMod").getAttribute("data-idmod");
 		alert(idold);
 		var min=$('#tfMinEd').val();
 		var max=$('#tfMaxEd').val();
 		var claveper=$('#cbPeriodoEd').val();
 		var periodo = $('#cbPeriodoEd option:selected').text();
+
+		alert(claveper);
+		alert(periodo);
 		var finconvocatoria=$('#tfFinCnvEd').val();
 		var inicioprg=$('#tfInicioPrgEd').val();
 		var finprg=$('#tfFinPrgEd').val();
 		var mining=$("#tfMinINGEd").val();
 		var maxing=$("#tfMaxINGEd").val();
-		var anio=inicioprg.substring(0,4);
+		var anio=apertura.substring(0,4);
 		var idnew=anio+claveper;
 		var encontrado="";
 		alert(idnew+"Este es el id nuevo");
@@ -210,24 +213,28 @@ $("#tfMax").on("keypress",function()
 
 			var objeto=JSON.parse(resultados);
 			console.log(objeto.encontrado);
-			if(objeto.encontrado==true||objeto.encontrado=="true"){
-				alert("la convocatoria ya existe");
+			if(idnew==idold){
+				alert("es la misma");
 				
 			}
+			if(objeto.encontrado=="true"&&idnew!=idold){
+				alert("ya hay una convocatorias con los mismos datos");
+			}
+
 		}).then(function(r){
-				console.log(r);
-				if(objeto.encontrado!=true||objeto.encontrado!="true")
-				{
-					alert("se puede modificarr");
-	/*						$.ajax
+				var objeto=JSON.parse(r);
+				console.log(objeto.encontrado);
+				if(objeto.encontrado==false||objeto.encontrado=="false"){
+					alert("se ba ja modificar");
+					datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
+					$.ajax
 					({
-						url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
-						data:datos,
+						url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
+						data:datosmod,
 						type:"POST",
 						success: function(data)
 					 		{        		//alert('Registro Guardado');
 			        		console.log("Enviado");
-
 			        		},
 			      		error: function()
 			      			{
@@ -237,14 +244,14 @@ $("#tfMax").on("keypress",function()
 
 					}).done(function(resultados)
 					{
-						//console.log(resultados);
-
-						var objeto=JSON.parse(resultados);
-						console.log(objeto.encontrado);
-						if(objeto.encontrado==true||objeto.encontrado=="true"){
-							alert("la convocatoria ya existe");
-						}
-					});	*/
+						
+						$("#resultados").html(resultados);
+						$.getScript( "recursos/sistema/js/convocatorias.js");
+				
+					});			
+				}
+				if(idnew==idold){
+					alert("modificarr el mismo");
 				}
 				
 			});
@@ -270,28 +277,7 @@ $("#tfMax").on("keypress",function()
 		/*var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
 
 		
-		$.ajax
-		({
-			url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
-			data:datos,
-			type:"POST",
-			success: function(data)
-		 		{        		//alert('Registro Guardado');
-        		console.log("Enviado");
-        		},
-      		error: function()
-      			{
-        		
-        		console.log("Error en el envio de datos");
-      			}
-
-		}).done(function(resultados)
-		{
-			
-			$("#resultados").html(resultados);
-			$.getScript( "recursos/sistema/js/convocatorias.js");
-	
-		});	
+		
 
 		*/
 

@@ -89,6 +89,9 @@ class ControladorConvocatorias extends Controlador
 	}
 	public function modificar()
 	{
+		$id=$_POST["id"];
+		$idnew=$_POST["idnew"];
+		
 		$periodo=$_POST["periodo"];
 		$anio=$_POST["anio"];
 	    $min=$_POST["min"];

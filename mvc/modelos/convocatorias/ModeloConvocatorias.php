@@ -93,6 +93,12 @@ class ModeloConvocatorias extends ConexionBD
       return $salida; 
 
   }
+  public function updateespacios($convocatoria){
+      
+      $updatetsu="UPDATE CONVOCATORIAS SET Min=11,Max=22 WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='TSU'";
+      //echo $update;
+      $this->conexion->query($updatetsu);        
+  }
  
   public function tblConvocatorias()
   {
@@ -229,6 +235,47 @@ class ModeloConvocatorias extends ConexionBD
     
     
     $update="UPDATE CONVOCATORIAS SET Activo='0' WHERE ClaveConvocatoria<>$clave";
+   
+
+    try{
+  
+        if( !$this->conexion->query($update))
+          { 
+        throw new Exception('error!'); 
+          }
+         
+      }
+        catch( Exception $e )
+        {
+      
+          return 1;
+        }
+      
+    return 0;
+  }
+  public function updateconvocatoria($convocatoria,$idold){
+    $clave=$convocatoria->getClaveConvocatoria();
+    $periodo=$convocatoria->getPeriodo();
+    $anio=$convocatoria->getAnio();
+    $min=$convocatoria->getAlumnosMin();
+    $max=$convocatoria->getAlumnosMax();
+    $fecha=$convocatoria->getConvocatoriaFecha();
+    $activo=$convocatoria->getActivo();
+    $finconvocatoria=$convocatoria->getFinConvocatoria();
+    $prginicio=$convocatoria->getPrgInicio();
+    $prgfin=$convocatoria->getPrgFin();    
+
+    $update="UPDATE CONVOCATORIAS 
+              SET ClaveConvocatoria='{$clave}',
+              Periodo='{$periodo}',
+              Año='{$anio}',
+              AlumnosMin='{$min}',
+              AlumnosMax='{$max}',
+              ConvocatoriaFecha='{$fecha}',
+              CierreConvocatoria='{$finconvocatoria}',
+              ProrrogaInicio='{$prginicio}',
+              ProrrogaFin='{$prgfin}'
+              WHERE ClaveConvocatoria='{$idold}'";
    
 
     try{

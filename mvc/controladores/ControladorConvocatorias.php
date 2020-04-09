@@ -90,8 +90,7 @@ class ControladorConvocatorias extends Controlador
 	public function modificar()
 	{
 		$id=$_POST["id"];
-		$idnew=$_POST["idnew"];
-		
+		//$idnew=$_POST["idnew"];
 		$periodo=$_POST["periodo"];
 		$anio=$_POST["anio"];
 	    $min=$_POST["min"];
@@ -143,8 +142,8 @@ class ControladorConvocatorias extends Controlador
 
 
 
-	   	$this->model->insertar($convocatoria,$grado,$cuatrimestre,$this->modeloespacios,$minfrm,$maxfrm);
-
+	   	$this->model->updateconvocatoria($convocatoria,$id);
+	   	$this->model->updateespacios($ClaveConvocatoria);
 	   	echo $this->model->tblConvocatorias();
 	}
 
@@ -164,6 +163,7 @@ class ControladorConvocatorias extends Controlador
 		$id=$_POST["claveper"];
 		echo json_encode($this->model->consulta($id,"modificar"));	
 	}
+
 
 	
 

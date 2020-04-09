@@ -224,7 +224,8 @@ $("#tfMax").on("keypress",function()
 		}).then(function(r){
 				var objeto=JSON.parse(r);
 				console.log(objeto.encontrado);
-				if(objeto.encontrado==false||objeto.encontrado=="false"){
+
+				
 					alert("se ba ja modificar");
 					datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
 					$.ajax
@@ -248,11 +249,33 @@ $("#tfMax").on("keypress",function()
 						$("#resultados").html(resultados);
 						$.getScript( "recursos/sistema/js/convocatorias.js");
 				
-					});			
-				}
-				if(idnew==idold){
+					});
+				/*if(idnew==idold){
 					alert("modificarr el mismo");
-				}
+					datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
+					$.ajax
+					({
+						url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
+						data:datosmod,
+						type:"POST",
+						success: function(data)
+					 		{        		//alert('Registro Guardado');
+			        		console.log("Enviado");
+			        		},
+			      		error: function()
+			      			{
+			        		
+			        		console.log("Error en el envio de datos");
+			      			}
+
+					}).done(function(resultados)
+					{
+						
+						$("#resultados").html(resultados);
+						$.getScript( "recursos/sistema/js/convocatorias.js");
+				
+					});
+				}*/
 				
 			});
 

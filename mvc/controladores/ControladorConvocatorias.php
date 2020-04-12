@@ -143,7 +143,8 @@ class ControladorConvocatorias extends Controlador
 
 
 	   	$this->model->updateconvocatoria($convocatoria,$id);
-	   	$this->model->updateespacios($ClaveConvocatoria);
+	   	$this->model->updateespacios($ClaveConvocatoria,"ING",$minfrm[1],$maxfrm[1]);
+	   	$this->model->updateespacios($ClaveConvocatoria,"TSU",$min,$max);
 	   	echo $this->model->tblConvocatorias();
 	}
 

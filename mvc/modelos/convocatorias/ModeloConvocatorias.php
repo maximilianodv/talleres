@@ -93,9 +93,9 @@ class ModeloConvocatorias extends ConexionBD
       return $salida; 
 
   }
-  public function updateespacios($convocatoria){
+  public function updateespacios($convocatoria,$nivel,$min,$max){
       
-      $updatetsu="UPDATE CONVOCATORIAS SET Min=11,Max=22 WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='TSU'";
+      $updatetsu="UPDATE ESPACIOS SET Min=$min,Max=$max WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
       //echo $update;
       $this->conexion->query($updatetsu);        
   }

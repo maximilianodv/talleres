@@ -4,10 +4,13 @@ class ModeloInscripciones extends ConexionBD
 {
 	private $inscripcion;
 	private $installer;
+	
+
 	function __construct()
 	{
 		parent::__construct();
 		require_once "mvc/modelos/inscripcion/Inscripcion.php";
+		date_default_timezone_set('America/Mexico_City');
 		
 	}
 	public function insertar($inscripcion,$installer=null)
@@ -82,11 +85,12 @@ class ModeloInscripciones extends ConexionBD
 		$grupo=2;
 		$claveconvocatoria=$this->inscripcion->getClaveConvocatoria();
 		$superclave=$this->inscripcion->getGrado().$this->inscripcion->getClaveConvocatoria();
+		$hoy = date('Y-m-j,H:i:s'); 
 	    $this->conexion->autocommit(FALSE);
 			//$this->installer=$installer;
 		
 
-			 $insertartaller="INSERT INTO INSTALLERS VALUES ('".$matricula.$taller."',".$taller.",".$matricula.",".$claveconvocatoria.")";
+			 $insertartaller="INSERT INTO INSTALLERS VALUES ('".$matricula.$taller."',".$taller.",".$matricula.",".$claveconvocatoria.",'".$hoy."')";
 	    try{
 	          //el if conprueba si todo es correcto 
 	        if( !$this->conexion->query($insertartaller)){ 

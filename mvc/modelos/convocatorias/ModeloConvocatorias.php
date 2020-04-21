@@ -95,10 +95,56 @@ class ModeloConvocatorias extends ConexionBD
   }
   public function updateespacios($convocatoria,$nivel,$min,$max){
       
+      $buscarespacios="SELECT * FROM ESPACIOS WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
+      $this->resultados2=$this->conexion->query($buscarespacios);
+      $row2=$this->resultados2->fetch_array();
+      $minodl=$row2["Min"];
+      $maxold=$row2["Max"];
+
+      
       $updatetsu="UPDATE ESPACIOS SET Min=$min,Max=$max WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
+
       //echo $update;
-      $this->conexion->query($updatetsu);        
+      $this->conexion->query($updatetsu); 
+      //maxold=20;
+      //7max=17
+      //minold=10;
+    
+      $talleres=idstallconvo($convocaria);
+
+      if($max<$maxold){
+        $seldel=$maxold-$max;
+         /* 
+         $deletealumntall="DELETE FROM INSTALLERS WHERE TALLERES_id_taller=3 ORDER BY INSTALLERS.Fecha DESC LIMIT 5
+         UPDATE ESPACIOS SET Min=$min,Max=$max WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
+
+          //echo $update;
+          $this->conexion->query($deletealumntall); */
+          foreach ($talleres as $seldel){
+                del1insc($id,$eliminados);                        
+          }
+      }
+
+      //       
   }
+  public function idstallconvo($convocaria){
+    $resultSet=$this->conexion->query("SELECT TALLERES.id_taller FROM TALLERES WHERE Convocatoria=$convocaria");
+    $talleres=array();
+    while($row = $resultSet->fetch_array()){
+        
+        array_push($talleres,$row["id_taller"]);
+      }
+
+    return $talleres;
+  }
+  
+  public function del1insc($idtaller,$eliminados){
+
+         $deletealumntall="DELETE FROM INSTALLERS WHERE TALLERES_id_taller=$idtaller ORDER BY INSTALLERS.Fecha DESC LIMIT $eliminados";
+
+          $this->conexion->query($deletealumntall);
+  }
+
  
   public function tblConvocatorias()
   {

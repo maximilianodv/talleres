@@ -110,8 +110,8 @@ class ModeloConvocatorias extends ConexionBD
       //7max=17
       //minold=10;
     
-      $talleres=idstallconvo($convocaria);
-
+      $talleres=$this->idstallconvo($convocatoria);
+        print_r($talleres);
       if($max<$maxold){
         $seldel=$maxold-$max;
          /* 
@@ -120,8 +120,9 @@ class ModeloConvocatorias extends ConexionBD
 
           //echo $update;
           $this->conexion->query($deletealumntall); */
-          foreach ($talleres as $seldel){
-                del1insc($id,$eliminados);                        
+          print_r("que paso");
+          foreach ($talleres as $id){
+                $this->del1insc($id,$seldel);                        
           }
       }
 

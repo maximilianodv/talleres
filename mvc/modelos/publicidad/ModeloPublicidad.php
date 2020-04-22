@@ -5,6 +5,15 @@ class ModeloPublicidad extends ConexionBD
 	{
 		parent::__construct();
 	}
+  public function escdisp($taller,$convocatoria,$nivel){
+      $consulta="SELECT (ESPACIOS.Max-BUSCTOTS.Total)AS Disponible,BUSCTOTS.Total AS Totales FROM ESPACIOS,(SELECT COUNT(*)AS Total FROM INSTALLERS WHERE INSTALLERS.TALLERES_id_taller=$taller) AS BUSCTOTS WHERE ESPACIOS.ClaveConvocatoria=$convocatoria AND ESPACIOS.ClaveNivel='$nivel' ";
+
+        $this->resultados=$this->conexion->query($consulta);
+        $row=$this->resultados->fetch_array();
+        $dis=$row["Disponible"];
+        return $dis;    
+
+  }
 public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null)
 {
     $inscripcion="";
@@ -25,7 +34,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
 
 
-   $sql="SELECT *FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;
+   $sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;
    ";
 
    $salida="";
@@ -38,9 +47,10 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
           $id=$row['id_taller'];
           $nombre=$row["Nombre"];
-          $espacio=$row['Espacio'];
+          
           $min=$row['Min'];
           $nivel=$row['Carrera'];
+          $espacio=$this->escdisp($id,$periodo,$nivel);
 
           $completo=$taller!=null?"Inscrito":"Taller Completo";
           if($iniciosesion)
@@ -64,6 +74,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                   <p class='box-modern-title'>$nivel</p>
                   <div class='box-modern-text' id='{$id}div'>
                     <p>Espacio:$espacio</p>
+                    
                     <p class='box-modern-title'>$completo</p>
                   </div>
                   <div class='box-modern-text'>

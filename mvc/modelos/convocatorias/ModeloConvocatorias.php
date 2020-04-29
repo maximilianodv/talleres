@@ -13,6 +13,7 @@ class ModeloConvocatorias extends ConexionBD
     require_once 'mvc/modelos/grados/Grado.php';
     require_once 'mvc/modelos/espacios/Espacio.php';
     require_once 'mvc/modelos/espacios/ModeloEspacios.php';
+    date_default_timezone_set('America/Mexico_City');
   }
 
 
@@ -470,12 +471,14 @@ class ModeloConvocatorias extends ConexionBD
       }
   }
   public function historialalumno($matricula){
+    $hoyanio = date('Y');
     $buscar="SELECT (REGISTRO.GradoInicial+CONTEO.Inicial)AS Cuatri FROM TALLERES.REGISTRO,(SELECT COUNT(*)AS Inicial FROM TALLERES.INSCRIPCION WHERE Matricula='{$matricula}')AS CONTEO WHERE Matricula='{$matricula}'";
     $this->resultados=$this->conexion->query($buscar);
     $row=$this->resultados->fetch_array();
     //$convocatoria=$row["ClaveConvocatoria"];
 
     $respuesta["cuatrimestre"]=$row["Cuatri"];
+    $respuesta["anio"]=$hoyanio;
     return $respuesta;
   }
   public function consulta($clave,$tipo=null)

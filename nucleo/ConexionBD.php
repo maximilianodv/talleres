@@ -11,8 +11,8 @@ class ConexionBD
     public function __construct()
     {
       $this->host="localhost";
-      $this->user="root";
-      $this->passwd="";
+      $this->user="maxsql";
+      $this->passwd="12345ABCD.a";
       $this->db="TALLERES";
       $this->charset="utf8_spanish_ci";
       $this->conexion=new mysqli($this->host,$this->user,$this->passwd,$this->db);

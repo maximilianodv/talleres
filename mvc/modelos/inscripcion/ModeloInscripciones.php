@@ -4,19 +4,19 @@ class ModeloInscripciones extends ConexionBD
 {
 	private $inscripcion;
 	private $installer;
-	
+
 
 	function __construct()
 	{
 		parent::__construct();
 		require_once "mvc/modelos/inscripcion/Inscripcion.php";
 		date_default_timezone_set('America/Mexico_City');
-		
+
 	}
 	public function insertar($inscripcion,$installer=null)
 	{
 		$verificarinsert=0;
-  
+
     //generarid es una funcion para buscar el id maximo que tiene la tabla y sumarle 1 para crear un autoincrement pero sabiendo el id que se agregara
     	$verificarinsert=$verificarinsert+$this->inscripcion($inscripcion,$installer);
     	$verificarinsert=$verificarinsert+$this->inscripciontaller($inscripcion,$installer);
@@ -25,57 +25,43 @@ class ModeloInscripciones extends ConexionBD
 	public function inscripcion($inscripcion,$taller)
 	{
 		 //se desactiva el autocomit
-	/*$this->inscripcion=$inscripcion;
+	  //se declaran las variables con el valor del objeto
 
-	
-	$matricula=$this->inscripcion->getMatricula();
+	  $this->inscripcion=$inscripcion;
+		$matricula=$this->inscripcion->getMatricula();
 		$nombre="";
-	$carrera=$this->inscripcion->getCarrera();
-	$grado=$this->inscripcion->getGrado();
-	$grupo=$this->inscripcion->getGrupo();
-	$claveconvocatoria=$this->inscripcion->getClaveConvocatoria();
-	$superclave=$this->inscripcion->getGrado().$this->inscripcion->getClaveConvocatoria();
-    $this->conexion->autocommit(FALSE);
-    $salida="";
-    //se declaran las variables con el valor del objeto */
-    
-	   $this->inscripcion=$inscripcion;
-				$matricula=$this->inscripcion->getMatricula();
-				$nombre="";
 		$carrera=$this->inscripcion->getCarrera();
 		$grado=$this->inscripcion->getGrado();
 		$grupo=$this->inscripcion->getGrupo();
 		$grupo=2;
 		$claveconvocatoria=$this->inscripcion->getClaveConvocatoria();
 		$superclave=$this->inscripcion->getGrado().$this->inscripcion->getClaveConvocatoria();
-	    $this->conexion->autocommit(FALSE);
+	  $this->conexion->autocommit(FALSE);
 			//$this->installer=$installer;
-	
-
-			 $insertar="INSERT INTO INSCRIPCION VALUES ('".$matricula."','nombre','".$grado."',".$grupo.",null,'".$claveconvocatoria."',".$carrera.")";
+		 $insertar="INSERT INTO INSCRIPCION VALUES ('".$matricula."','nombre','".$grado."',".$grupo.",null,'".$claveconvocatoria."',".$carrera.")";
 
 	 try{
-          
+
         if( !$this->conexion->query($insertar))
-          { 
-        throw new Exception('error!'); 
+          {
+        throw new Exception('error!');
           }
-          
+
       }
         catch( Exception $e )
         {
          $this->conexion->rollback();
           return 1;
-          
+
         }
  		$this->conexion->commit();
      return 0;
       //return $insertar.$insertartaller;
-      
+
 	}
 	public function inscripciontaller($inscripcion,$taller)
 	{
-		
+
 		$this->inscripcion=$inscripcion;
 				$matricula=$this->inscripcion->getMatricula();
 				$nombre="";
@@ -85,37 +71,37 @@ class ModeloInscripciones extends ConexionBD
 		$grupo=2;
 		$claveconvocatoria=$this->inscripcion->getClaveConvocatoria();
 		$superclave=$this->inscripcion->getGrado().$this->inscripcion->getClaveConvocatoria();
-		$hoy = date('Y-m-j,H:i:s'); 
+		$hoy = date('Y-m-j,H:i:s');
 	    $this->conexion->autocommit(FALSE);
 			//$this->installer=$installer;
-		
+
 
 			 $insertartaller="INSERT INTO INSTALLERS VALUES ('".$matricula.$taller."',".$taller.",".$matricula.",".$claveconvocatoria.",'".$hoy."')";
 	    try{
-	          //el if conprueba si todo es correcto 
-	        if( !$this->conexion->query($insertartaller)){ 
-	        
-	        	throw new Exception('error!'); 
+	          //el if conprueba si todo es correcto
+	        if( !$this->conexion->query($insertartaller)){
+
+	        	throw new Exception('error!');
 	          }
 	          else{
 	          		$this->actespaciotaller($taller);
 	          }
-	          
+
 	      }
 	        catch( Exception $e )
 	        {
 	          //si hubo un erro en el registro enviara el 1 el cual basta para cancelar los registros
 	        $this->conexion->rollback();
 	          return  1;
-	          	
+
 	        }
 	        //si salio todo bien envia un cero
 	        $this->conexion->commit();
 
 
 	     return 0;
-	     
-	      
+
+
 	    /*$sql="SELECT *FROM USUARIOS WHERE Correo='".$usuario->getCorreo()."'";
 	              $this->resultados=$this->conexion->query($sql);
 	              $row=$this->resultados->fetch_array();
@@ -131,18 +117,18 @@ class ModeloInscripciones extends ConexionBD
         $this->resultados=$this->conexion->query($sql);
         $row=$this->resultados->fetch_array();
         $espcdip=$row["EspaciosDis"];
-        
+
          $update="UPDATE TALLERES SET espacio=($espcdip) WHERE id_taller=$taller";
-			
+
    	    try{
-	  
+
 	        if(!$this->conexion->query($update))
-	          { 
-	        	throw new Exception('error!'); 
+	          {
+	        	throw new Exception('error!');
 	          }
-	          
+
 	          	$this->conexion->commit();
-	         
+
 	      	}
 	        catch( Exception $e )
 	        {

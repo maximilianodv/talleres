@@ -1,16 +1,44 @@
 function inscripcion(id)
 {
 	//var inscrip = document.getElementsByClassName('inscripcion');
-    var id=id.getAttribute("data-id");
+  var id=id.getAttribute("data-id");
 	const inscrip= document.querySelector('.inscripcion');
-    var aceptar = document.querySelector("#btnGuardar"); 
+  var aceptar = document.querySelector("#btnGuardar");
 	aceptar.setAttribute("data-id",id);
-    aceptar.setAttribute("onclick","hola(this);");
-    alert("termina");
+  aceptar.setAttribute("onclick","hola(this),histconvocat();");
+  alert("termina");
+}
+function histconvocat(){
+  alert("snsnsnnsss");
+  const url = 'index.php?controlador=ControladorConvocatorias&accion=historial';
+
+  console.log(url);
+  const http = new XMLHttpRequest();
+  console.log(http);
+  const sesion= document.querySelector('.sesion');
+  console.log(sesion);
+  var matricula=sesion.getAttribute("id");
+  console.log(matricula);
+  //console.log("nombreee");
+  var params ="matricula="+matricula+"";
+  console.log(params);
+  http.open("POST", url);
+  http.onreadystatechange = function(){
+
+      if(this.readyState == 4 && this.status == 200){
+          var resultado = JSON.parse(this.responseText);
+          console.log("antes jsjsjsju7ytgjj");
+          console.log(resultado.resp);
+
+      }
+    }
+    // Ponemos las cabeceras de la solicitud como si fuera un formulario, necesario si se utiliza POST
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //Enviamos la solicitud junto con los parámetros
+    http.send(params);
 }
 function hola(id)
 {
-
 const url = 'index.php?controlador=ControladorPublicidad&accion=inscribirperiodo';
 const http = new XMLHttpRequest();
 var carrera=document.getElementById("cbCarrera").value;
@@ -33,7 +61,7 @@ http.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200)
     {
         var resultado = JSON.parse(this.responseText);
-        console.log("antes ");
+        console.log("antes de inscrip");
         console.log(resultado.carrera);
         console.log(resultado.grado);
         console.log(resultado.grupo);
@@ -58,4 +86,3 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //Enviamos la solicitud junto con los parámetros
 http.send(params);
 }
-

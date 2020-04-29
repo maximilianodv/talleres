@@ -3,17 +3,17 @@ class ModeloRegistros extends ConexionBD
 {
   private $registro;
   private $usuario;
-  public function __construct() 
+  public function __construct()
   {
     parent::__construct();
     require_once 'mvc/modelos/registros/Registro.php';
     require_once 'mvc/modelos/usuarios/Usuario.php';
   }
-  
+
 
   public function insertarRegistro($registro)
   {
-        $this->conexion->autocommit(FALSE);
+      $this->conexion->autocommit(FALSE);
       $matricula=$registro->getMatricula();
       $nombre=$registro->getNombre();
       $paterno=$registro->getPaterno();
@@ -26,20 +26,20 @@ class ModeloRegistros extends ConexionBD
       $municipio=$registro->getMunicipio();
       $correo=$registro->getCorreo();
       $usuario=$registro->getId_Usuario();
-      $niveles=$registro->getNivel(); 
+      $niveles=$registro->getNivel();
 
 
       $insertar="INSERT INTO REGISTRO (Matricula, Nombre,ApellidoP,ApellidoM,Telefono,Fecha_nac,Calle,Numero,Colonia,Municipio,Correo,Usuario,Estatus,ClaveNivel) VALUES ('".$matricula."','".$nombre."','".$paterno."', '".$materno."','".$telefono."','".$fechanc."','".$calle."','".$numero."','".$colonia."','".$municipio."','".$correo."',".$usuario.",'Activo','".$niveles."')";
-   
+
      // echo $insertar;
       try
         {
-    
+
           if( !$this->conexion->query($insertar))
-            { 
-          throw new Exception('error!'); 
+            {
+          throw new Exception('error!');
             }
-           
+
         }
     catch( Exception $e )
         {
@@ -49,7 +49,7 @@ class ModeloRegistros extends ConexionBD
 
         //$this->conexion->commit();
       return 0;
-        
+
   }
   public function insertar($registro,$usuario)
   {
@@ -57,7 +57,7 @@ class ModeloRegistros extends ConexionBD
     //se declaran lavariables
     $this->usuario=$usuario;
     $this->registro=$registro;
-    
+
 
       //verificar insert verifica que proceso salio mal, si todos los procesos salieron arrojara un 0 al sumar lo que retorna cada funcion, si alguna falla no se hace el registro en ninguna tabla
     $this->conexion->autocommit(FALSE);
@@ -72,7 +72,7 @@ class ModeloRegistros extends ConexionBD
     //$verificarinsert=$verificarinsert+$this->insertarTaller($this->taller);
       //se verifica si todo sumo cero para hacer las inserciones en la base de datos, si no es asi cancela todas la inserciones
     $verificarinsert==0?$this->conexion->commit():$this->conexion->rollback();
-   // 
+   //
       /*
     $exito_query_ok=false; // our control variable
 
@@ -89,7 +89,7 @@ class ModeloRegistros extends ConexionBD
   echo $verificarinsert;
 
 
-    
+
   }
     public function insertarUsuario($usuario)
   {
@@ -107,32 +107,32 @@ class ModeloRegistros extends ConexionBD
     $tipousuario=$usuario->getTipoUsuario();
     //hacela insersion
     $insertar="INSERT INTO USUARIOS(id_usuario,Nombre,Apellidos,Correo,Password,Activo,Creado,TipoUsuario) VALUES ('".$id."','".$nombre."','".$apellidos."','".$correo."','".$password."',".$activo.",".$creado.",'".$tipousuario."')";
-  
+
     //echo $insertar;
     try{
-          //el if conprueba si todo es correcto 
+          //el if conprueba si todo es correcto
         if( !$this->conexion->query($insertar))
-          { 
-        throw new Exception('error!'); 
+          {
+        throw new Exception('error!');
           }
-          
+
       }
         catch( Exception $e )
         {
           //si hubo un erro en el registro enviara el 1 el cual basta para cancelar los registros
           return 1;
-          
+
         }
         //si salio todo bien envia un cero
      return 0;
-      
-    
+
+
   }
    public function generaid()
   {
     //se declara la variable como 0
     $id=0;
-    
+
      $sql="SELECT MAX(id_usuario)AS id_usuario FROM USUARIOS";
      //la consulta arrojara el numero mayor de la tabla y se sumara 1
      //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
@@ -143,6 +143,5 @@ class ModeloRegistros extends ConexionBD
               //$usuario->setId_Usuario($id_usuario);
           return $id;
   }
-  
-}
 
+}

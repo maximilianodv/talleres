@@ -11,7 +11,7 @@ class ModeloPublicidad extends ConexionBD
         $this->resultados=$this->conexion->query($consulta);
         $row=$this->resultados->fetch_array();
         $dis=$row["Disponible"];
-        return $dis;    
+        return $dis;
 
   }
 public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null)
@@ -25,7 +25,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     {
 
       $condicion2=" AND id_taller=$taller";
-      
+
     }
     if($nivel!=null)
     {
@@ -40,14 +40,14 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
    $salida="";
     if($this->conexion->query($sql)!=null)
    {
-    
+
         $consulta=$this->conexion->query($sql);
         while ($row=$consulta->fetch_array())
         {
 
           $id=$row['id_taller'];
           $nombre=$row["Nombre"];
-          
+
           $min=$row['Min'];
           $nivel=$row['Carrera'];
           $espacio=$this->escdisp($id,$periodo,$nivel);
@@ -74,12 +74,12 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                   <p class='box-modern-title'>$nivel</p>
                   <div class='box-modern-text' id='{$id}div'>
                     <p>Espacio:$espacio</p>
-                    
+
                     <p class='box-modern-title'>$completo</p>
                   </div>
                   <div class='box-modern-text'>
-                      
-                    
+
+
                     </div>
                   </article>
                 </div>";
@@ -100,27 +100,27 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                           <p >Espacio:$espacio</p>
                           <p >Minimo:$min</p>
                          $inscripcion
-     
+
                         </div>
                         <div class='box-modern-text'>
-                            
-                          
+
+
                         </div>
                       </article>
-                    </div>";  
+                    </div>";
               }
-        
-        
+
+
         }
 
 
     }
-      
-      
+
+
     return $salida;
 }
 public function categoria($categoria)
-{ 
+{
   $consulta="SELECT * FROM CATEGORIAS WHERE Idcategoria=$categoria";
   $this->resultados=$this->conexion->query($consulta);
   $row=$this->resultados->fetch_array();
@@ -128,13 +128,13 @@ public function categoria($categoria)
   return $categoria;
 }
 
-  
+
   public function __destruct()
   {
   	$this->conexion->close();
   }
 
- 
+
    public function espacios($id)
   {
         $consulta="SELECT * FROM TALLERES WHERE id_taller=$id";
@@ -145,8 +145,8 @@ public function categoria($categoria)
   }
 
    public function inscrito($id,$espacio=null,$matricula=null)
-  { 
-    
+  {
+
       $nuevoespacio=$espacio-1;
       if ($nuevoespacio==-1)
       {
@@ -156,8 +156,8 @@ public function categoria($categoria)
       {
           $nuevinscrito=$this->alumnoinscrito($matricula,$id);
           $act=$this->actualizacion($id);
-          
-          
+
+
 
           if($act and $nuevinscrito)
           {
@@ -170,15 +170,15 @@ public function categoria($categoria)
             return false;
           }
 
-          
-          
+
+
       }
-      
-    
+
+
 
   }
 
-  
+
    public function mostrarespacio($id)
   {
       $salida="";
@@ -195,27 +195,27 @@ public function categoria($categoria)
                 else
                 {
                     $salida="<p>Espacio:$espacio</p>
-                <button class='button button-primary sm inscripcion'  data-id='{$id}'>Incribirse</button>";  
+                <button class='button button-primary sm inscripcion'  data-id='{$id}'>Incribirse</button>";
                 }
-                
+
         }
 
-      
-      return $salida;   
+
+      return $salida;
   }
   public function alumnoinscrito($matricula,$taller)
   {
-      
+
     try {
            $this->conexion->autocommit(FALSE);
           $insert="INSERT INTO INSCRIPCION (Matricula, Nombre, Carrera, Taller, Instructor, Grado, Grupo, Idconstancia, Usuario) VALUES ($matricula, 'nose', 1, $taller, 46, 1, 1, 1, 1)";
-         
+
           if ($this->conexion->query($insert))
           {
 
-            return true;          
+            return true;
           }
-          
+
       }
       catch (Exception $e)
       {
@@ -229,7 +229,7 @@ public function categoria($categoria)
       catch (mysqli_sql_exception $e)
       {
         echo $e->getMessage();
-      } 
+      }
       return false;
   }
   public function actualizacion($id,$matricula=null)
@@ -238,14 +238,14 @@ public function categoria($categoria)
           $this->conexion->autocommit(FALSE);
 
           $actualizar="UPDATE TALLERES SET Espacio=Espacio-1 WHERE id_taller='$id'";
-          
+
             if ($this->conexion->query($actualizar))
           {
 
-          
-            $this->conexion->commit();  
-              return true;      
-          }         
+
+            $this->conexion->commit();
+              return true;
+          }
       }
       catch (Exception $e)
       {
@@ -259,7 +259,7 @@ public function categoria($categoria)
       catch (mysqli_sql_exception $e)
       {
         echo $e->getMessage();
-      } 
+      }
       return false;
   }
   public function comboniveles()
@@ -268,15 +268,15 @@ public function categoria($categoria)
       $consulta=$this->conexion->query("SELECT * FROM NIVELES");
       while ($row=$consulta->fetch_array())
         {
-          
+
           $clave=$row["ClaveNivel"];
           $nombre=$row["Nombre"];
-          $salida.="<option value='$clave'>$nombre</option>";       
-                
+          $salida.="<option value='$clave'>$nombre</option>";
+
         }
 
-      
-      return $salida;   
+
+      return $salida;
   }
   public function combogrados($periodo)
   {
@@ -284,31 +284,31 @@ public function categoria($categoria)
       $consulta=$this->conexion->query("SELECT * FROM GRADO WHERE ClaveConvocatoria='$periodo'");
       while ($row=$consulta->fetch_array())
         {
-          
+
           $clave=$row["Id_Cuatrimestre"];
           $nombre=$row["Cuatrimestre"];
-          $salida.="<option value='$clave'>$nombre</option>";       
-                
+          $salida.="<option value='$clave'>$nombre</option>";
+
         }
 
-      
-      return $salida;   
+
+      return $salida;
   }
   public function verificarins($matricula,$periodo)
   {
       //$consulta="SELECT * FROM INSCRIPCION WHERE Matricula='$matricula' AND Taller=(SELECT id_taller from talleres WHERE Convocatoria=$periodo)";
-      $consulta="SELECT * FROM INSTALLERS WHERE INSCRIPCION_Matricula='$matricula'";
+      $consulta="SELECT * FROM INSTALLERS WHERE INSCRIPCION_Matricula='$matricula' AND INSCRIPCION_ClaveConvocatoria=$periodo";
         $this->resultados=$this->conexion->query($consulta);
         $row=$this->resultados->fetch_array();
         $taller=$row["TALLERES_id_taller"];
-        return $taller;    
+        return $taller;
   }
   public function nivel($matricula)
   {
     $consulta="SELECT ClaveNivel FROM REGISTRO WHERE Matricula=$matricula";
       $this->resultados=$this->conexion->query($consulta);
       $row=$this->resultados->fetch_array();
-      
+
       $nivel=$row["ClaveNivel"];
     return $nivel;
 
@@ -320,18 +320,16 @@ public function categoria($categoria)
       $consulta=$this->conexion->query("SELECT * FROM CARRERAS WHERE NIVELES_ClaveNivel='$nivel'");
       while ($row=$consulta->fetch_array())
         {
-          
+
           $clave=$row["ClaveCarrera"];
           $nombre=$row["Nombre"];
-          $salida.="<option value='$clave'>$nombre</option>";       
-                
+          $salida.="<option value='$clave'>$nombre</option>";
+
         }
 
-      
-      return $salida;   
+
+      return $salida;
   }
 
 }
 ?>
-
-

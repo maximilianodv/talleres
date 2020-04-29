@@ -15,16 +15,16 @@ class ControladorConvocatorias extends Controlador
 		parent::__construct();
 	}
 	public function index()
-	{	
+	{
 		$sesion=Session::get_SESSION();
 		/*$datos=array('combousuarios' =>$this->model->usuariosintructores(),'mostrar'=>$this->model->mostrar());*/
 		$datos=array('tabla'=>$this->model->tblConvocatorias(),'fecha'=>$this->modelfecha);
 		$vista=new Vista("mvc/vistas/sistema/convocatorias/vistaConvocatorias.php",$datos);
 	}
-	
+
 	public function registrar()
-	{	
-		
+	{
+
 		$periodo=$_POST["periodo"];
 		$anio=$_POST["anio"];
 	    $min=$_POST["min"];
@@ -43,9 +43,9 @@ class ControladorConvocatorias extends Controlador
         $maxfrm[1]=$_POST["maxing"];
 	   	$ClaveConvocatoria=$anio.$claveper;
 	   	$cuatrimestre;
-	   	
-		
-		
+
+
+
 	   	switch ($claveper)
 	   		{
 			    case 912:
@@ -68,7 +68,7 @@ class ControladorConvocatorias extends Controlador
 			    		$cuatrimestre= array(15,16);
 			    	break;
 			}
-	   	
+
 	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
 
 	   	$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
@@ -78,8 +78,8 @@ class ControladorConvocatorias extends Controlador
 	   	$this->model->insertar($convocatoria,$grado,$cuatrimestre,$this->modeloespacios,$minfrm,$maxfrm);
 
 	   	echo $this->model->tblConvocatorias();
-	   	
-		
+
+
 	}
 	public function cambiarestado()
 	{
@@ -110,9 +110,9 @@ class ControladorConvocatorias extends Controlador
         $maxfrm[1]=$_POST["maxing"];
 	   	$ClaveConvocatoria=$anio.$claveper;
 	   	$cuatrimestre;
-	   	
-		
-		
+
+
+
 	   	switch ($claveper)
 	   		{
 			    case 912:
@@ -135,7 +135,7 @@ class ControladorConvocatorias extends Controlador
 			    		$cuatrimestre= array(15,16);
 			    	break;
 			}
-	   	
+
 	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
 
 	   	$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
@@ -162,11 +162,15 @@ class ControladorConvocatorias extends Controlador
 	}
 	public function buscarmodclvper(){
 		$id=$_POST["claveper"];
-		echo json_encode($this->model->consulta($id,"modificar"));	
+		echo json_encode($this->model->consulta($id,"modificar"));
+	}
+	public function historial(){
+		$matricula=$_POST["matricula"];
+		echo json_encode($this->model->historialalumno($matricula));
 	}
 
 
-	
+
 
 }
 

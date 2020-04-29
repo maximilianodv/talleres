@@ -21,14 +21,14 @@ class ControladorPublicidad extends Controlador
 
 			$datos=array('combocarreras'=>$this->carrerasnivel(),
 			'talleres'=>$this->model->mostrar(true,$this->convocatorias->periodoactual(),$sesion["nivel"],
-				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual())),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));	
+				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual())),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
 		}
 		else
 		{
-			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual()));		
+			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual()));
 		}
-		
-		
+
+
 		$vista=new Vista("mvc/vistas/publicidad/index.php",$datos);
 	}
 	public function secciones()
@@ -41,10 +41,10 @@ class ControladorPublicidad extends Controlador
 	{
 		//$iniciosesion=null,$periodo=null,$carrera=null,$taller=null
 		$sesion=Session::get_SESSION();
-		
+
 		$inscrito=null;
 		$valor=false;
-		
+
 		if(isset($sesion["matricula"]))
 		{
 			$valor=true;
@@ -52,17 +52,17 @@ class ControladorPublicidad extends Controlador
 			return $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito);
 		}
 
-	
+
 		return  $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito);
 	}
-	
+
 	public function carrerasnivel()
 	{
 			$sesion=Session::get_SESSION();
 			$matricula=$sesion["matricula"];
 			$nivel=$this->model->nivel($matricula);
 			$salida=$this->model->carreras($nivel);
-		
+
 		return $salida;
 	}
 	public function verificarins($matricula,$periodo)
@@ -78,14 +78,14 @@ class ControladorPublicidad extends Controlador
 		$matricula=$_POST["matricula"];
 		if($this->model->inscrito($id,$this->model->espacios($id),$matricula))
 		{
-				//echo $this->model->mostrarespacio($id);	
+				//echo $this->model->mostrarespacio($id);
 				echo $this->mostrar();
 		}
 		else
 		{
 			echo "<script> alert('Ups! Error);</script> ";
 		}
- 		
+
 	}
 	public function inscribirperiodo()
 	{
@@ -100,17 +100,17 @@ class ControladorPublicidad extends Controlador
 		$respuesta["taller"]=$taller;
 		$respuesta["matricula"]=$matricula;
 
-		
+
 
 		$con=$this->convocatorias->periodoactual();
-		
+
 		$inscripcion= new Inscripcion($matricula,null,$carrera,$grado,$grupo,null,$con);
 		if($matricula!="")
 		{
-			
-			$respuesta["datos"]=$this->inscripciones->insertar($inscripcion,$taller);	
-			
-			$respuesta["abc"]=$this->mostrar();	
+
+			$respuesta["datos"]=$this->inscripciones->insertar($inscripcion,$taller);
+
+			$respuesta["abc"]=$this->mostrar();
 
 		}
 
@@ -125,11 +125,11 @@ class ControladorPublicidad extends Controlador
 		$fecha_bd = $row['timestamp'];
 
 		while( $fecha_bd <= $fecha_ac )
-			{	
+			{
 				$query3    = "SELECT timestamp FROM mensajes ORDER BY timestamp DESC LIMIT 1";
 				$con       = mysql_query($query3 );
 				$ro        = mysql_fetch_array($con);
-				
+
 				usleep(100000);//anteriormente 10000
 				clearstatcache();
 				$fecha_bd  = strtotime($ro['timestamp']);
@@ -139,15 +139,14 @@ class ControladorPublicidad extends Controlador
 		$datos_query = mysql_query($query);
 		while($row = mysql_fetch_array($datos_query))
 		{
-			$ar["timestamp"]          = strtotime($row['timestamp']);	
-			$ar["mensaje"] 	 		  = $row['mensaje'];	
-			$ar["id"] 		          = $row['id'];	
-			$ar["status"]           = $row['status'];	
-			$ar["tipo"]           = $row['tipo'];	
+			$ar["timestamp"]          = strtotime($row['timestamp']);
+			$ar["mensaje"] 	 		  = $row['mensaje'];
+			$ar["id"] 		          = $row['id'];
+			$ar["status"]           = $row['status'];
+			$ar["tipo"]           = $row['tipo'];
 		}
 		$dato_json   = json_encode($ar);
 		echo $dato_json;
 	}
 	*/
 }
-

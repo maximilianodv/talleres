@@ -4,23 +4,23 @@ class ControladorRegistros extends Controlador
 	public function __construct()
 	{
 		require_once "mvc/modelos/registros/ModeloRegistros.php";
-		
+
 		$this->model=new ModeloRegistros();
 		parent::__construct();
-		
+
 	}
 	/*public function index()
-	{	
+	{
 		$sesion=Session::get_SESSION();
-		
+
 		$datos=array('tabla'=><1this></1this>->model->tblConvocatorias(),'fecha'=>$this->modelfecha);
 		$vista=new Vista("mvc/vistas/Sistema/convocatorias/vistaConvocatorias.php",$datos);
 	}
 	*/
 	public function registrar()
-	{	
-		
-		
+	{
+
+
 		$matricula=htmlspecialchars($_POST["matricula"]);
 		$nombre=htmlspecialchars($_POST["nombre"]);
 		$paterno=htmlspecialchars($_POST["paterno"]);
@@ -34,7 +34,7 @@ class ControladorRegistros extends Controlador
 	   	$correo=htmlspecialchars($_POST["correo"]);
 	   	$password=htmlspecialchars($_POST["password"]);
 	   	$nivel=htmlspecialchars($_POST["niv"]);
-
+			$grado=htmlspecialchars($_POST["grado"]);
 		setlocale(LC_ALL,"es_MX");
 		// Día del mes con 2 dígitos, y con ceros iniciales, de 01 a 31
 		$dia=date("d");
@@ -56,17 +56,17 @@ class ControladorRegistros extends Controlador
 
 	   	$registro=new Registro($matricula,$nombre,$paterno,$materno,$telefono,null,null,null,$fechanc,$calle,$numero,$colonia,$municipio,$correo,$nivel);
 	   	$registro->setNivel($nivel);
+			$registro->setGrado($grado);
 
 	   	$usuario=new Usuario(null,$nombre,$paterno." ".$materno,$correo,$password,"1",$fecha,"ALUMNO");
 	   	echo $this->model->insertar($registro,$usuario);
 
-	   
-	   	
-		
+
+
+
 	}
-	
+
 
 }
 
 ?>
-

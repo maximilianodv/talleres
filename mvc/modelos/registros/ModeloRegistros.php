@@ -27,9 +27,9 @@ class ModeloRegistros extends ConexionBD
       $correo=$registro->getCorreo();
       $usuario=$registro->getId_Usuario();
       $niveles=$registro->getNivel();
+      $grado=$registro->getGrado();
 
-
-      $insertar="INSERT INTO REGISTRO (Matricula, Nombre,ApellidoP,ApellidoM,Telefono,Fecha_nac,Calle,Numero,Colonia,Municipio,Correo,Usuario,Estatus,ClaveNivel) VALUES ('".$matricula."','".$nombre."','".$paterno."', '".$materno."','".$telefono."','".$fechanc."','".$calle."','".$numero."','".$colonia."','".$municipio."','".$correo."',".$usuario.",'Activo','".$niveles."')";
+      $insertar="INSERT INTO REGISTRO (Matricula, Nombre,ApellidoP,ApellidoM,Telefono,Fecha_nac,Calle,Numero,Colonia,Municipio,Correo,Usuario,Estatus,ClaveNivel,GradoInicial) VALUES ('".$matricula."','".$nombre."','".$paterno."', '".$materno."','".$telefono."','".$fechanc."','".$calle."','".$numero."','".$colonia."','".$municipio."','".$correo."',".$usuario.",'Activo','".$niveles."',".$grado.")";
 
      // echo $insertar;
       try

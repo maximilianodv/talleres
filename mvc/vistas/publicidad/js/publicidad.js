@@ -5,11 +5,11 @@ function inscripcion(id)
 	const inscrip= document.querySelector('.inscripcion');
   var aceptar = document.querySelector("#btnGuardar");
 	aceptar.setAttribute("data-id",id);
-  aceptar.setAttribute("onclick","hola(this)");
+  aceptar.setAttribute("onclick","inscperiodo(this)");
   alert("termina");
 }
 
-function hola(id)
+function inscperiodo(id)
 {
   let miPrimeraPromise = new Promise((resolve, reject) => {
     // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.

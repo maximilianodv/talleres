@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
   <head>
     <title>Home</title>
     <meta name="viewport" content="width=device-width height=device-height initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="google" content="notranslate" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="mvc/vistas/publicidad/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CMuli:100,300,400,600,800">
@@ -45,25 +46,25 @@
         </div>
 
       </div>
-      
+
     </div>
   </div>
 </div>
 <!--fin-->
     <div class="page">
-  
+
       <header class="section page-header">
             <?php
                  new Vista("mvc/vistas/publicidad/layout/encabezado.php");
                         ?>
 
-           
+
       </header>
-      
+
       <section class="section parallax-container context-dark" data-parallax-img="mvc/vistas/publicidad/images/bg-image-6-1.jpg">
         <div class="parallax-content">
-      
-  
+
+
         </div>
       </section>
      <!-- <iframe src="recursos/sistema/convocatorias/BASEDEDATOSII.pdf"></iframe>-->
@@ -74,10 +75,10 @@
               <div class="badge wow fadeIn"></div>
               <h3 class="wow fadeIn">Talleres Extracurriculares</h3>
               <div class="row row-30 row-xl-60" id="talleres">
-                <?php 
+                <?php
                     echo $datos['talleres'];
 
-                    
+
 
                 ?>
               </div>
@@ -90,13 +91,13 @@
 
 
             </div>
-            
+
           </section>
      </div>
 
       <footer class="section footer-classic">
 
-          
+
         <div class="footer-classic-main">
           <div class="container">
 
@@ -179,14 +180,14 @@
                                     {
                                       echo $datos["combogrados"];
                                     }
-                                      
-                                    
+
+
                                   ?>
-                         
-                                  
+
+
                                 </select>
                                 <!--<label class="form-label" for="tfTelefono">Telefono</label>-->
-                              
+
                               </div>
                   </div>
 
@@ -206,18 +207,18 @@
     </div>
   </div>
 </div>
-         
-       
+
+
 
 
         <div class="footer-classic-aside">
           <div class="container">
-            
+
           </div>
-              <?php 
+              <?php
                 if(isset($datos['usuario']))
                     {
-                   
+
                       $sesion=Session::get_SESSION();
                       echo $datos['usuario'];
 
@@ -226,7 +227,7 @@
                       <a class='button button-sm button-header button-winona' href='index.php?controlador=ControladorLogueo&accion=cerrarSesion'>Cerrar Sesion</a>
               </div>";
                     }
-                   
+
              ?>
 
         </div>

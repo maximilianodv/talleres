@@ -45,26 +45,26 @@
         </div>
 
       </div>
-      
+
     </div>
   </div>
 </div>
 <!--fin-->
     <div class="page">
-  
+
       <header class="section page-header">
             <?php
                  new Vista("mvc/vistas/publicidad/layout/encabezado.php");
 
                         ?>
 
-           
+
       </header>
-      
-      
+
+
       <section class="section parallax-container context-dark" data-parallax-img="mvc/vistas/publicidad/images/bg-image-6-1.jpg">
         <div class="parallax-content">
-      
+
 
         </div>
       </section>
@@ -80,7 +80,7 @@
               <!--<form class="rd-mailform rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" id="FMRegistro">-->
                 <form  id="FMRegistro"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
                   <div class="row row-x-16 row-20">
-                    
+
                     <div class="col-md-6">
                       <div class="form-wrap">
                         <!--<input class="form-input" id="tfMatricula" type="text" name="name" required>-->
@@ -161,16 +161,32 @@
                   </div>
 
                   <div class="col-md-6">
-                    <div class="form-wrap">
-                      <label class="form-label" for="cbNivel">Nivel</label>
+                    <div class="form-wrap" role="">
+                      <!--<label class="form-label" for="cbNivel">Nivel</label>
                       <select id='cbNivel' name='tipo' class="form-input" required>
                           <?php
-                          echo $datos["comboniveles"];
+                          //echo $datos["comboniveles"];
                           ?>
+                      </select>-->
+                      <p align="center">Seleccionar Cuatrimestre</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-wrap">
+                      <select class="form-input" id="cbGradosR">
+                        <?php
+                          if(isset($datos["grados"]))
+                          {
+                            echo $datos["grados"];
+                          }
+
+
+                        ?>
+
+
                       </select>
                     </div>
                   </div>
-
                     <div class="col-md-6">
                       <div class="form-wrap form-button">
                         <button class="button button-block button-primary" id="btnreg" type="submit">Registrarse</button>
@@ -190,7 +206,7 @@
           </a>
         <div class="footer-classic-main">
           <div class="container">
-         
+
           </div>
         </div>
         <div class="footer-classic-aside">

@@ -17,8 +17,9 @@ class Registro
 	private $correo;
   private $id_usuario;
   private $nivel;
-  
-  public function __construct($matricula=null, $nombre=null, $paterno=null, $materno=null,$telefono=null,$rfc=null,$curp=null,$edo_civil=null,$fecha_nac=null,$calle=null,$numero=null,$colonia=null,$municipio=null,$correo=null,$id_usuario=null,$nivel=null)
+	private $grado;
+
+  public function __construct($matricula=null, $nombre=null, $paterno=null, $materno=null,$telefono=null,$rfc=null,$curp=null,$edo_civil=null,$fecha_nac=null,$calle=null,$numero=null,$colonia=null,$municipio=null,$correo=null,$id_usuario=null,$nivel=null,$grado=null)
   {
     $this->matricula = $matricula;
     $this->nombre = $nombre;
@@ -36,6 +37,7 @@ class Registro
     $this->correo=$correo;
     $this->id_usuario=$id_usuario;
     $this->nivel=$nivel;
+		$this->grado=$grado;
   }
  function getMatricula()
   {
@@ -101,6 +103,10 @@ class Registro
   {
     return $this->nivel;
   }
+	function getGrado()
+	{
+		return $this->grado;
+	}
   function setMatricula($matricula)
   {
   	$this->matricula=$matricula;
@@ -165,9 +171,13 @@ class Registro
   {
     $this->nivel=$nivel;
   }
+	function setGrado($grado)
+	{
+		$this->grado=$grado;
+	}
 
 
-  
+
 
 }
 ?>

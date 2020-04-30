@@ -34,7 +34,7 @@ class ControladorPublicidad extends Controlador
 	public function secciones()
 	{
 		$pagina=$_GET["pagina"];
-		$datos=array('comboniveles' =>$this->model->comboniveles());
+		$datos=array('comboniveles' =>$this->model->comboniveles(),'grados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
 		$vista=new Vista("mvc/vistas/publicidad/secciones/"."$pagina".".php",$datos);
 	}
 	public function mostrar()

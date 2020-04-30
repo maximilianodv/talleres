@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                          <!--   <input type="submit" id="btnIniciarSesion" class="btnSubmit" value="Login" />-->
-                          <input class="btn btn-primary" id="btnIniciarSesion" value="Login" />
+                          <input class="btn btn-primary" id="btnIniciarSesion" value="Login" type="button"/>
                         </div>
                         <div class="form-group">
 

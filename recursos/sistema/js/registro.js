@@ -60,7 +60,7 @@ $(document).ready(function()
 		console.log(municipio);
 		console.log(correo);
 		console.log(niv);
-		var datos={"matricula":matricula,"nombre":nombre,"paterno":paterno,"materno":materno,"telefono":telefono,"fechanc":fechanc,"calle":calle,"numero":numero,"colonia":colonia,"municipio":municipio,"correo":correo,"password":password,"niv":niv,"grado":grado};
+		var datos={"matricula":matricula,"nombre":nombre,"paterno":paterno,"materno":materno,"telefono":telefono,"fechanc":fechanc,"calle":calle,"numero":numero,"colonia":colonia,"municipio":municipio,"correo":correo,"password":password,"niv":niv,"grado":gradotx};
 
 		$.ajax
             ({

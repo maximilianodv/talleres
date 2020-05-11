@@ -167,8 +167,8 @@ class ModeloConvocatorias extends ConexionBD
           <th>Activo</th>
           <th>Inicio Prorroga</th>
           <th>Fin Prorroga</th>
+          <th>Finalizado</th>
           <th></th>
-
         </tr>
        </thead>
        <tbody>";
@@ -201,8 +201,10 @@ class ModeloConvocatorias extends ConexionBD
         $cierre=$row["CierreConvocatoria"];
         $prginicio=$row["ProrrogaInicio"];
         $prgfin=$row["ProrrogaFin"];
+        $iffinalizado=$row["Finalizado"];
+        $switch=$iffinalizado==1?"checked":"";
         $activo="";
-        $estado=$row["Activo"]=="1"?"checked":"";
+        $estado=$row["Activo"]=="0"?"checked":"";
         $after=$row["Activo"];
         $salida .=
         "<tr id='{$clave}F'>
@@ -216,15 +218,17 @@ class ModeloConvocatorias extends ConexionBD
            <td><input type='radio' id='{$clave}' name='act' class='activar act{$after}' data-id='$clave' data-after='$after' $estado ></td>
               <td>$prginicio</td>
            <td>$prgfin</td>
+           <td><input type='checkbox' id='vehicle1' name='vehicle1' value='Bike' $switch></td>
           <td>
 
               <button type='button' id='$clave' data-clave='$clave' class='btnEditar  btn btn-primary btn-sm' data-target='#editconvocatoria' data-toggle='modal' >
-                <i class='fa fa-edit  fa-lg text-white'  data-toggle='modal' data-target='#newarticulo' >Editar</i>
+                <i class='fa fa-edit  fa-lg text-white'  data-toggle='modal' data-target='#newarticulo' ></i>
               </button>
               <button type='button' data-clave='$clave' class='btnEliminar btn btn-danger btn-sm'>
-                <i class='fa fa-trash  fa-lg text-white'  data-toggle='modal' data-target='#modalconfirmar'>Eliminar</i>
+                <i class='fa fa-trash  fa-lg text-white'  data-toggle='modal' data-target='#modalconfirmar'></i>
               </button>
            </td>
+
         </tr>
         ";
       }
@@ -269,7 +273,7 @@ class ModeloConvocatorias extends ConexionBD
    public function periodoactual()
   {
 
-     $sql="SELECT ClaveConvocatoria FROM CONVOCATORIAS WHERE Activo=1";
+     $sql="SELECT ClaveConvocatoria FROM CONVOCATORIAS WHERE Activo=1 AND Finalizado=0";
      //la consulta arrojara el numero mayor de la tabla y se sumara 1
      //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
         $this->resultados=$this->conexion->query($sql);

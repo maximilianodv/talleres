@@ -28,7 +28,9 @@ class ControladorPublicidad extends Controlador
 			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual()));
 		}
 
-
+		if($datos==null||$datos==""||count($datos)==0){
+			$datos="<h1>El periodo ha finalizado</h1>";
+		}
 		$vista=new Vista("mvc/vistas/publicidad/index.php",$datos);
 	}
 	public function secciones()
@@ -54,6 +56,7 @@ class ControladorPublicidad extends Controlador
 
 
 		return  $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito);
+
 	}
 
 	public function carrerasnivel()

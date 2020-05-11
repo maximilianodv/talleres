@@ -58,7 +58,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                     $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
                     "
                <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion(this);'>
-                  Incribirse
+                  Incribirse $periodo
                 </button>";
               }
           if($espacio==0)
@@ -100,8 +100,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                           <p >Espacio:$espacio</p>
                           <p >Minimo:$min</p>
                          $inscripcion
-
-                        </div>
+												</div>
                         <div class='box-modern-text'>
 
 
@@ -116,6 +115,9 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
     }
 
+		if($salida==null||$salida==""){
+			$salida="<h3 class='wow fadeIn' style='visibility: visible; animation-name: fadeIn;'>Finalizado</h3>";
+		}
 
     return $salida;
 }
@@ -330,6 +332,17 @@ public function categoria($categoria)
 
       return $salida;
   }
+	public function iffininscripcion($convocaria){
+		$fecha="2019-09-30";
+		$salida="";
+		$consulta=$this->conexion->query("SELECT *FROM CONVOCATORIAS WHERE ClaveConvocatoria='$convocaria' AND CierreConvocatoria<=$fecha");
+		while ($row=$consulta->fetch_array()){
+				$salida.=$row["CierreConvocatoria"];
+			}
+			return $salida;
+
+	}
+
 
 }
 ?>

@@ -168,6 +168,12 @@ class ControladorConvocatorias extends Controlador
 		$matricula=$_POST["matricula"];
 		echo json_encode($this->model->historialalumno($matricula));
 	}
+	public function changefinz(){
+		$id=$_GET["id"];
+		$interruptor=$_GET["interruptor"];
+		$this->model->interruptor($id,$interruptor);
+
+	}
 
 
 

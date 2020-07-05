@@ -219,8 +219,8 @@ class ModeloConvocatorias extends ConexionBD
            <td>$prgfin</td>
            <td>
             <div class='custom-control custom-switch'>
-              <input type='checkbox' onclick='alert(ss)' class='custom-control-input clsfinz' id='{$clave}' $iffinalizado>
-              <label class='custom-control-label' for='customSwitch1'></label>
+              <input type='checkbox' class='custom-control-input clsfinz' id='{$clave}' $iffinalizado>
+
             </div>
            </td>
 
@@ -490,6 +490,14 @@ class ModeloConvocatorias extends ConexionBD
     $respuesta["cuatrimestre"]=$row["Cuatri"];
     $respuesta["anio"]=$hoyanio;
     return $respuesta;
+  }
+  public function interruptor($id,$newvalor){
+    //UPDATE `TALLERES`.`CONVOCATORIAS` SET `Finalizado` = '0' WHERE (`ClaveConvocatoria` = '2020912');
+    $updateintr="UPDATE CONVOCATORIAS SET Finalizado=$newvalor WHERE ClaveConvocatoria=$id";
+
+    //echo $update;
+    $this->conexion->query($updateintr);
+    
   }
   public function consulta($clave,$tipo=null)
   {

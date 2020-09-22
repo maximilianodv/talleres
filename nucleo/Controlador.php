@@ -1,10 +1,12 @@
 <?php
 
 class Controlador
-{  
+{
   public function __construct()
   {
     //isset:si esta definido
+
+    
     if(isset($_GET["accion"]))//para invocar algun metodo diferente a index.
     {
       $accion=$_GET["accion"];
@@ -19,5 +21,5 @@ class Controlador
       else
         die("Método: \"index\" no implementado.<br>");
   }
-  
+
 }

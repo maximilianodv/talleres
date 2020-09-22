@@ -11,6 +11,7 @@ class ControladorPublicidad extends Controlador
 		$this->convocatorias=new ModeloConvocatorias();
 		$this->inscripciones=new ModeloInscripciones();
 		parent::__construct();
+
 	}
 	public function index()
 	{
@@ -21,11 +22,11 @@ class ControladorPublicidad extends Controlador
 
 			$datos=array('combocarreras'=>$this->carrerasnivel(),
 			'talleres'=>$this->model->mostrar(true,$this->convocatorias->periodoactual(),$sesion["nivel"],
-				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual())),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
+				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual()),$this->convocatorias->fechasperiodoactual()),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
 		}
 		else
 		{
-			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual()));
+			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual(),null,null,$this->convocatorias->fechasperiodoactual()));
 		}
 
 		if($datos==null||$datos==""||count($datos)==0){
@@ -51,11 +52,11 @@ class ControladorPublicidad extends Controlador
 		{
 			$valor=true;
 			$inscrito=$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual());
-			return $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito);
+			return $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito,$this->convocatorias->fechasperiodoactual());
 		}
 
 
-		return  $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito);
+		return  $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito,$this->convocatorias->fechasperiodoactual());
 
 	}
 

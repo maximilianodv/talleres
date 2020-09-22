@@ -21,12 +21,10 @@ class ModeloConvocatorias extends ConexionBD
   {
 
     $this->modeloespacio=$modeloesp;
-      //
     $clavecuatri="";
     $verificarinsert=0;
-
-        $niveles[0] ="TSU";
-        $niveles[1] ="ING";
+    $niveles[0] ="TSU";
+    $niveles[1] ="ING";
     $this->conexion->autocommit(FALSE);
 
       $verificarinsert=$verificarinsert+$this->insertarconvocatoria($convocatoria);
@@ -40,36 +38,14 @@ class ModeloConvocatorias extends ConexionBD
           $verificarinsert=$verificarinsert+$this->insertgrados($grado);
 
       }
-         //$this->instructor->setId_Usuario
 
-
-
-    //echo $verificarinsert;
-    //echo "antes";
      for ($j=0; $j <count($niveles); $j++)
       {
-
         $espac=new Espacio($convocatoria->getClaveConvocatoria(),$niveles[$j],$max[$j],$min[$j]);
-        /*$this->espacios->setClaveNivel($niveles[$i]);
-        $this->espacios->setClaveConvocatoria($convocatoria->getClaveConvocatoria());
-        $this->espacios->setMax($max[$i]);
-        $this->espacios->setMin($min[$i]);*/
-
         $verificarinsert=$verificarinsert+$this->insertarespacio($espac);
       }
 
     $verificarinsert=$verificarinsert+$this->updateactivos($convocatoria->getClaveConvocatoria());
-   /* $carrera[0] ="TSU";
-    $carrera[1] ="ING";
-
-    for ($i=0; $i <1 ; $i++)
-    {
-        $espacio=new Espacio($convocatoria->getClaveConvocatoria(),$carrera[$i],10+$i,14+$i);
-        $verificarinsert=$verificarinsert+$espacios->insertespacio($espacio);
-        echo $verificarinsert;
-    }
-    */
-    //echo  $verificarinsert;
     $verificarinsert==0?$this->conexion->commit():$this->conexion->rollback();
 
   }
@@ -94,40 +70,26 @@ class ModeloConvocatorias extends ConexionBD
       return $salida;
 
   }
-  public function updateespacios($convocatoria,$nivel,$min,$max){
+  public function updateespacios($convocatoria,$nivel,$min,$max)
+  {
 
       $buscarespacios="SELECT * FROM ESPACIOS WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
       $this->resultados2=$this->conexion->query($buscarespacios);
       $row2=$this->resultados2->fetch_array();
       $minodl=$row2["Min"];
       $maxold=$row2["Max"];
-
-
       $updatetsu="UPDATE ESPACIOS SET Min=$min,Max=$max WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
-
-      //echo $update;
       $this->conexion->query($updatetsu);
-      //maxold=20;
-      //7max=17
-      //minold=10;
-
       $talleres=$this->idstallconvo($convocatoria);
-        //print_r($talleres);
-      if($max<$maxold){
+      if($max<$maxold)
+      {
         $seldel=$maxold-$max;
-         /*
-         $deletealumntall="DELETE FROM INSTALLERS WHERE TALLERES_id_taller=3 ORDER BY INSTALLERS.Fecha DESC LIMIT 5
-         UPDATE ESPACIOS SET Min=$min,Max=$max WHERE ClaveConvocatoria='{$convocatoria}' AND ClaveNivel='{$nivel}'";
-
-          //echo $update;
-          $this->conexion->query($deletealumntall); */
-         // print_r("que paso");
-          foreach ($talleres as $id){
+          foreach ($talleres as $id)
+          {
                 $this->del1insc($id,$seldel);
           }
       }
 
-      //
   }
   public function idstallconvo($convocaria){
     $resultSet=$this->conexion->query("SELECT TALLERES.id_taller FROM TALLERES WHERE Convocatoria=$convocaria");
@@ -287,6 +249,16 @@ class ModeloConvocatorias extends ConexionBD
         $convocatoria=$row["ClaveConvocatoria"];
         //$usuario->setId_Usuario($id_usuario);
         return $convocatoria;
+  }
+  public function fechasperiodoactual(){
+   $sql="SELECT ConvocatoriaFecha AS inicio,CierreConvocatoria AS fin,ProrrogaInicio AS PrInicio,ProrrogaFin AS PrFin FROM CONVOCATORIAS WHERE Activo=1 AND Finalizado=0";
+   //la consulta arrojara el numero mayor de la tabla y se sumara 1
+   //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
+      $this->resultados=$this->conexion->query($sql);
+      $row=$this->resultados->fetch_array();
+      //$convocatoria=$row["ClaveConvocatoria"];
+      //$usuario->setId_Usuario($id_usuario);
+      return $row["inicio"];
   }
   public function updateactivos($clave)
   {
@@ -497,7 +469,7 @@ class ModeloConvocatorias extends ConexionBD
 
     //echo $update;
     $this->conexion->query($updateintr);
-    
+
   }
   public function consulta($clave,$tipo=null)
   {

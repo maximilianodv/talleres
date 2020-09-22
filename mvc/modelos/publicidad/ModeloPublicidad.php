@@ -4,6 +4,13 @@ class ModeloPublicidad extends ConexionBD
 	public function __contruct()
 	{
 		parent::__construct();
+
+		/*date_default_timezone_set('America/Argentina/San_Luis');
+		$hoy = getdate();
+		print_r($hoy);*/
+		//
+		//date_default_timezone_set('Europe/Dublin');
+		//date_default_timezone_set('America/Mexico_City');
 	}
   public function escdisp($taller,$convocatoria,$nivel){
       $consulta="SELECT (ESPACIOS.Max-BUSCTOTS.Total)AS Disponible,BUSCTOTS.Total AS Totales FROM ESPACIOS,(SELECT COUNT(*)AS Total FROM INSTALLERS WHERE INSTALLERS.TALLERES_id_taller=$taller) AS BUSCTOTS WHERE ESPACIOS.ClaveConvocatoria=$convocatoria AND ESPACIOS.ClaveNivel='$nivel' ";
@@ -14,48 +21,44 @@ class ModeloPublicidad extends ConexionBD
         return $dis;
 
   }
-public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null)
-{
+public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null,$fechainicio=null,$fechacierre=null,$prorogainicio=null,$prorogafion=null){
     $inscripcion="";
     $condicion2="";
     $condicion3="";
     $espacios="";
 
-    if($taller!=null)
-    {
-
-      $condicion2=" AND id_taller=$taller";
-
-    }
-    if($nivel!=null)
-    {
+		/*print_r($hoy[mon]);
+		print_r($hoy[wday]);*/
+		//print_r(date());
+		$fechainicio = strtotime("12-01-2021 10:00:00");
+		$hoy= strtotime("13-01-2021 10:00:00");;
+		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
+		if($fechainicio>=$hoy){
+		        echo "La fecha entrada ya ha pasado";
+		}else{
+		        echo "Aun falta algun tiempo";
+		}
+		//echo date("Y-m-d H:i:s");
+    if($taller!=null){
+			$condicion2=" AND id_taller=$taller";
+		}
+    if($nivel!=null){
       $condicion3="AND Carrera='$nivel'";
     }
-
-
-
-   $sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;
-   ";
-
-   $salida="";
-    if($this->conexion->query($sql)!=null)
-   {
-
-        $consulta=$this->conexion->query($sql);
-        while ($row=$consulta->fetch_array())
-        {
-
-          $id=$row['id_taller'];
+		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
+		$salida="";
+    if($this->conexion->query($sql)!=null){
+			$consulta=$this->conexion->query($sql);
+        while ($row=$consulta->fetch_array()){
+					$id=$row['id_taller'];
           $nombre=$row["Nombre"];
-
-          $min=$row['Min'];
+				//	$fechainicio="2020-02-02";
+					$min=$row['Min'];
           $nivel=$row['Carrera'];
           $espacio=$this->escdisp($id,$periodo,$nivel);
-
-          $completo=$taller!=null?"Inscrito":"Taller Completo";
-          if($iniciosesion)
-              {
-                    $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
+					$completo=$taller!=null?"Inscrito":"Taller Completo";
+          if($iniciosesion){
+            $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
                     "
                <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion(this);'>
                   Incribirse $periodo
@@ -70,11 +73,10 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                     <div class='box-modern-icon mdi mdi-television-guide'></div>
                     <div class='box-modern-circle box-modern-circle-1'></div>
                   </div>
-                  <p class='box-modern-title'>$nombre</p>
+                  <p class='box-modern-title'>$nombre </p>
                   <p class='box-modern-title'>$nivel</p>
                   <div class='box-modern-text' id='{$id}div'>
                     <p>Espacio:$espacio</p>
-
                     <p class='box-modern-title'>$completo</p>
                   </div>
                   <div class='box-modern-text'>
@@ -98,7 +100,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                         <p class='box-modern-title'>$nivel</p>
                         <div class='box-modern-text' id='{$id}div'>
                           <p >Espacio:$espacio</p>
-                          <p >Minimo:$min</p>
+                          <p >Minimo:$min $fechainicio</p>
                          $inscripcion
 												</div>
                         <div class='box-modern-text'>
@@ -118,7 +120,8 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 		if($salida==null||$salida==""){
 			$salida="<h3 class='wow fadeIn' style='visibility: visible; animation-name: fadeIn;'>Finalizado</h3>";
 		}
-
+		/*$fechaactual="2020-09-13";
+		$salida=$fechaactual=="2020-09-13"?"<h1>Perido terminado</h1>":"";*/
     return $salida;
 }
 public function categoria($categoria)

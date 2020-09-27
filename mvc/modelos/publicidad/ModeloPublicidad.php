@@ -21,23 +21,48 @@ class ModeloPublicidad extends ConexionBD
         return $dis;
 
   }
-public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null,$fechainicio=null,$fechacierre=null,$prorogainicio=null,$prorogafion=null){
+public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null,$fechasconvarg=null,$fechacierre=null,$prorogainicio=null,$prorogafion=null){
     $inscripcion="";
     $condicion2="";
     $condicion3="";
     $espacios="";
-
+		$sql="";
 		/*print_r($hoy[mon]);
 		print_r($hoy[wday]);*/
 		//print_r(date());
-		$fechainicio = strtotime("12-01-2021 10:00:00");
-		$hoy= strtotime("13-01-2021 10:00:00");;
+		echo $fechasconv["inicio"];
+		//echo $fechasconv["fin"];
+		$oDate1 = new DateTime($fechasconvarg["inicio"]);
+		$fechasconv = $oDate1->format("d-m-Y");
+
+
+		$oDate2 = new DateTime($fechasconvarg["fin"]);
+		$fechafin = $oDate2->format("d-m-Y");
+
+		$oDate3 = new DateTime($fechasconvarg["PrInicio"]);
+		$fechaproroga = $oDate3->format("d-m-Y");
+
+		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
+		$finproroga= $oDate4->format("d-m-Y");
+
+
+		//$sDate = $oDate->format("Y-m-d H:i:s");
+		 //echo date('F j, Y, g:i a',$fechasconv["inicio"]);
+		 //echo $sDate;
+		//$fechasconv = strtotime("13-01-2021 10:00:00");
+		//$fechafin = strtotime("15-01-2021 10:00:00");
+		//$fechaproroga = strtotime("17-01-2021 10:00:00");
+		//$finproroga= strtotime("20-01-2021 10:00:00");
+		echo $fechasconv."-   ";
+		echo $fechafin."-   ";
+		echo $fechaproroga."-   ";
+		echo $finproroga."-   ";
+		//$hoy= strtotime("14-01-2021 10:00:00");
+		$oDate5 = new DateTime("17-01-2021 10:00:00");
+		$hoy= $oDate5->format("d-m-Y");
+		$rellenobotoninsc=false;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
-		if($fechainicio>=$hoy){
-		        echo "La fecha entrada ya ha pasado";
-		}else{
-		        echo "Aun falta algun tiempo";
-		}
+
 		//echo date("Y-m-d H:i:s");
     if($taller!=null){
 			$condicion2=" AND id_taller=$taller";
@@ -46,18 +71,31 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
       $condicion3="AND Carrera='$nivel'";
     }
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
+
+if($fechasconv<=$hoy && $hoy<=$fechafin){
+					$rellenobotoninsc=true;
+		}
+		else if($fechaproroga<=$hoy && $hoy<$finproroga){
+						$sql="";
+						//sql de proroga
+		}
+		else if($finproroga<$hoy){
+				echo "queodna";
+				$sql="";
+		}
+
 		$salida="";
-    if($this->conexion->query($sql)!=null){
+    if($this->conexion->query($sql)!=null||$sql!=""){
 			$consulta=$this->conexion->query($sql);
         while ($row=$consulta->fetch_array()){
 					$id=$row['id_taller'];
           $nombre=$row["Nombre"];
-				//	$fechainicio="2020-02-02";
+				//	$fechasconv="2020-02-02";
 					$min=$row['Min'];
           $nivel=$row['Carrera'];
           $espacio=$this->escdisp($id,$periodo,$nivel);
 					$completo=$taller!=null?"Inscrito":"Taller Completo";
-          if($iniciosesion){
+          if($iniciosesion && $rellenobotoninsc){
             $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
                     "
                <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion(this);'>
@@ -100,7 +138,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                         <p class='box-modern-title'>$nivel</p>
                         <div class='box-modern-text' id='{$id}div'>
                           <p >Espacio:$espacio</p>
-                          <p >Minimo:$min $fechainicio</p>
+                          <p >Minimo:$min</p>
                          $inscripcion
 												</div>
                         <div class='box-modern-text'>

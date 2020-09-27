@@ -258,7 +258,7 @@ class ModeloConvocatorias extends ConexionBD
       $row=$this->resultados->fetch_array();
       //$convocatoria=$row["ClaveConvocatoria"];
       //$usuario->setId_Usuario($id_usuario);
-      return $row["inicio"];
+      return $row;
   }
   public function updateactivos($clave)
   {

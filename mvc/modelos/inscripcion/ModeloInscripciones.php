@@ -59,6 +59,37 @@ class ModeloInscripciones extends ConexionBD
       //return $insertar.$insertartaller;
 
 	}
+	public function iffininscripcion($matricula=null,$periodo=null){
+		$sql="SELECT *FROM INSCRIPCION WHERE INSCRIPCION.Matricula='{$matricula}' AND ClaveConvocatoria='{$periodo}'";
+		$this->resultados=$this->conexion->query($sql);
+		$row=$this->resultados->fetch_array();
+		$fechabd=$this->fechasconvocatorias($periodo);
+		$oDate5 = new DateTime("19-01-2021");
+		$hoy= $oDate5->format("Y-m-d");
+
+		$oDate1 = new DateTime("19-01-2021");
+		$fechaproroga= $oDate1->format("Y-m-d");
+
+		$oDate2 = new DateTime("22-01-2021");
+		$finproroga= $oDate2->format("Y-m-d");
+
+		if($row['Matricula']==null||$row['Matricula']==""){
+		//	$fechaproroga<=$hoy && $hoy<$finproroga
+			if($fechabd["ProrrogaInicio"]<=$hoy && $hoy<$fechabd["ProrrogaFin"]){
+					return false;
+			}
+			else {
+					return true;
+			}
+		}
+		return true;
+	}
+	public function fechasconvocatorias($clave){
+		$sql="SELECT * FROM TALLERES.CONVOCATORIAS WHERE ClaveConvocatoria=$clave";
+		$this->resultados=$this->conexion->query($sql);
+		$row=$this->resultados->fetch_array();
+		return $row;
+	}
 	public function inscripciontaller($inscripcion,$taller)
 	{
 

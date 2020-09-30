@@ -44,7 +44,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
 		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
 		$finproroga= $oDate4->format("d-m-Y");
-		$oDate5 = new DateTime("14-01-2021 10:00:00");
+		$oDate5 = new DateTime("20-01-2021 10:00:00");
 		$hoy= $oDate5->format("d-m-Y");
 		$rellenobotoninsc=true;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
@@ -58,12 +58,12 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     }
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
 		if($fechasconv<=$hoy && $hoy<=$fechafin){
-							$rellenobotoninsc=true;
+							//$rellenobotoninsc=true;
 				}
 
 	else if($fechaproroga<=$hoy && $hoy<$finproroga){
  						$sql="";
-						$rellenobotoninsc=true;
+						//$rellenobotoninsc=true;
  							//sql de proroga
  			}
 /*
@@ -106,10 +106,8 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                     <p>Espacio:$espacio</p>
                     <p class='box-modern-title'>$completo</p>
                   </div>
-                  <div class='box-modern-text'>
-
-
-                    </div>
+	                  <div class='box-modern-text'>
+	                  </div>
                   </article>
                 </div>";
 
@@ -359,7 +357,7 @@ public function categoria($categoria)
 
       return $salida;
   }
-	public function iffininscripcion($convocaria){
+	/*public function iffininscripcion($convocaria){
 		$fecha="2019-09-30";
 		$salida="";
 		$consulta=$this->conexion->query("SELECT *FROM CONVOCATORIAS WHERE ClaveConvocatoria='$convocaria' AND CierreConvocatoria<=$fecha");
@@ -368,7 +366,7 @@ public function categoria($categoria)
 			}
 			return $salida;
 
-	}
+	}*/
 
 
 }

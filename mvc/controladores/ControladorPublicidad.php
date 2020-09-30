@@ -102,6 +102,9 @@ class ControladorPublicidad extends Controlador
 	}
 	public function inscribirperiodo()
 	{
+
+
+	//	$ifproroga=$_POST["ifproroga"];
 		$carrera=$_POST["carrera"];
 		$grado=$_POST["grado"];
 		$grupo=$_POST["grupo"];
@@ -109,9 +112,9 @@ class ControladorPublicidad extends Controlador
 		$matricula=$_POST["matricula"];
 		$respuesta["carrera"]=$carrera;
 		$con=$this->convocatorias->periodoactual();
-
+		$estainscrito=$this->inscripciones->iffininscripcion($matricula,$con);
 		$inscripcion= new Inscripcion($matricula,null,$carrera,$grado,$grupo,null,$con);
-		if($matricula!="")
+		if($matricula!="" && $estainscrito)
 		{
 
 			$this->inscripciones->insertar($inscripcion,$taller);

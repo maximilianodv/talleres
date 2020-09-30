@@ -30,7 +30,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 		/*print_r($hoy[mon]);
 		print_r($hoy[wday]);*/
 		//print_r(date());
-		echo $fechasconv["inicio"];
+	//	echo $fechasconv["inicio"];
 		//echo $fechasconv["fin"];
 		$oDate1 = new DateTime($fechasconvarg["inicio"]);
 		$fechasconv = $oDate1->format("d-m-Y");
@@ -44,23 +44,9 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
 		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
 		$finproroga= $oDate4->format("d-m-Y");
-
-
-		//$sDate = $oDate->format("Y-m-d H:i:s");
-		 //echo date('F j, Y, g:i a',$fechasconv["inicio"]);
-		 //echo $sDate;
-		//$fechasconv = strtotime("13-01-2021 10:00:00");
-		//$fechafin = strtotime("15-01-2021 10:00:00");
-		//$fechaproroga = strtotime("17-01-2021 10:00:00");
-		//$finproroga= strtotime("20-01-2021 10:00:00");
-		echo $fechasconv."-   ";
-		echo $fechafin."-   ";
-		echo $fechaproroga."-   ";
-		echo $finproroga."-   ";
-		//$hoy= strtotime("14-01-2021 10:00:00");
-		$oDate5 = new DateTime("17-01-2021 10:00:00");
+		$oDate5 = new DateTime("14-01-2021 10:00:00");
 		$hoy= $oDate5->format("d-m-Y");
-		$rellenobotoninsc=false;
+		$rellenobotoninsc=true;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
 
 		//echo date("Y-m-d H:i:s");
@@ -71,18 +57,21 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
       $condicion3="AND Carrera='$nivel'";
     }
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
+		if($fechasconv<=$hoy && $hoy<=$fechafin){
+							$rellenobotoninsc=true;
+				}
 
-if($fechasconv<=$hoy && $hoy<=$fechafin){
-					$rellenobotoninsc=true;
-		}
-		else if($fechaproroga<=$hoy && $hoy<$finproroga){
-						$sql="";
-						//sql de proroga
-		}
-		else if($finproroga<$hoy){
+	else if($fechaproroga<=$hoy && $hoy<$finproroga){
+ 						$sql="";
+						$rellenobotoninsc=true;
+ 							//sql de proroga
+ 			}
+/*
+		else*/
+/*		else if($finproroga<$hoy){
 				echo "queodna";
 				$sql="";
-		}
+		}*/
 
 		$salida="";
     if($this->conexion->query($sql)!=null||$sql!=""){
@@ -139,12 +128,9 @@ if($fechasconv<=$hoy && $hoy<=$fechafin){
                         <div class='box-modern-text' id='{$id}div'>
                           <p >Espacio:$espacio</p>
                           <p >Minimo:$min</p>
-                         $inscripcion
+                             $inscripcion
 												</div>
-                        <div class='box-modern-text'>
-
-
-                        </div>
+                        <div class='box-modern-text'></div>
                       </article>
                     </div>";
               }

@@ -67,18 +67,9 @@ function inscperiodo(id)
     http.onreadystatechange = function(){
 
         if(this.readyState == 4 && this.status == 200)
-        {
+        { console.log(this.responseText);
             var resultado = JSON.parse(this.responseText);
-            console.log("antes de inscrip");
-            console.log(resultado.carrera);
-            console.log(resultado.grado);
-            console.log(resultado.grupo);
-            console.log("justo antes del error ");
-            console.log(resultado.matricula);
-            console.log(resultado.datos);
-            console.log(resultado.abc);
-
-            document.getElementById("talleres").innerHTML = resultado.abc;
+          document.getElementById("talleres").innerHTML = resultado.abc;
             var modal = document.getElementById("exampleModal");
 
         }

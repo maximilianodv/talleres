@@ -21,8 +21,12 @@ class ControladorPublicidad extends Controlador
 		{
 
 			$datos=array('combocarreras'=>$this->carrerasnivel(),
-			'talleres'=>$this->model->mostrar(true,$this->convocatorias->periodoactual(),$sesion["nivel"],
-				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual()),$this->convocatorias->fechasperiodoactual()),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
+			'talleres'=>$this->model->mostrar(true,
+																				$this->convocatorias->periodoactual(),
+																				$sesion["nivel"],
+																				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual()),
+																				$this->convocatorias->fechasperiodoactual()
+																			),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
 		}
 		else
 		{
@@ -52,7 +56,12 @@ class ControladorPublicidad extends Controlador
 		{
 			$valor=true;
 			$inscrito=$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual());
-			return $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito,$this->convocatorias->fechasperiodoactual());
+
+			return $this->model->mostrar(true,
+																				$this->convocatorias->periodoactual(),
+																				$sesion["nivel"],
+																				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual()),
+																				$this->convocatorias->fechasperiodoactual());
 		}
 
 
@@ -99,20 +108,13 @@ class ControladorPublicidad extends Controlador
 		$taller=$_POST["taller"];
 		$matricula=$_POST["matricula"];
 		$respuesta["carrera"]=$carrera;
-		$respuesta["grado"]=$grado;
-		$respuesta["grupo"]=$grupo;
-		$respuesta["taller"]=$taller;
-		$respuesta["matricula"]=$matricula;
-
-
-
 		$con=$this->convocatorias->periodoactual();
 
 		$inscripcion= new Inscripcion($matricula,null,$carrera,$grado,$grupo,null,$con);
 		if($matricula!="")
 		{
 
-			$respuesta["datos"]=$this->inscripciones->insertar($inscripcion,$taller);
+			$this->inscripciones->insertar($inscripcion,$taller);
 
 			$respuesta["abc"]=$this->mostrar();
 

@@ -219,8 +219,19 @@ class ModeloConvocatorias extends ConexionBD
     $finconvocatoria=$convocatoria->getFinConvocatoria();
     $prginicio=$convocatoria->getPrgInicio();
     $prgfin=$convocatoria->getPrgFin();
+    $iffinalizado=$convocatoria->getIfFinalizado();
 
-    $insertar="INSERT INTO CONVOCATORIAS VALUES ('{$clave}','{$periodo}','{$anio}','{$min}','{$max}','{$fecha}','{$finconvocatoria}','{$activo}','{$prginicio}','{$prgfin}')";
+    $insertar="INSERT INTO CONVOCATORIAS VALUES ('{$clave}',
+                                                '{$periodo}',
+                                                '{$anio}',
+                                                '{$min}',
+                                                '{$max}',
+                                                '{$fecha}',
+                                                '{$finconvocatoria}',
+                                                '{$iffinalizado}',
+                                                '{$activo}',
+                                                '{$prginicio}',
+                                                '{$prgfin}')";
     //echo $insertar;
     try{
 
@@ -332,7 +343,7 @@ class ModeloConvocatorias extends ConexionBD
     $cuatrimestre=$grado->getCuatrimestre();
     $claveconvocatoria=$grado->getClavePeriodo();
     $insertar="INSERT INTO GRADO VALUES ($id,'{$periodo}',$anio,$cuatrimestre,'{$claveconvocatoria}')";
-//    echo  $insertar;
+    //echo  $insertar;
     try{
 
         if( !$this->conexion->query($insertar))
@@ -399,25 +410,19 @@ class ModeloConvocatorias extends ConexionBD
 
   }
 
-  public function comboperiodos()
-  {
+  public function comboperiodos(){
      $salida="<label for='cbPeriodo'>Seleccion de Periodos</label>
               <select class='form-control' id='cbPeriodo'>
                   <option value=''>Todos</option> ";
 
       $consulta=$this->conexion->query("SELECT * FROM CONVOCATORIAS");
-      while ($row=$consulta->fetch_array())
-        {
-
+      while ($row=$consulta->fetch_array()){
           $clave=$row["ClaveConvocatoria"];
           $año=$row["Año"];
           $nombre=$row["Periodo"];
           $salida.="<option value='$clave'>$nombre $año</option>";
-
         }
-
-
-      return $salida."</select>";
+    return $salida."</select>";
   }
   public function eliminar($clave)
   {

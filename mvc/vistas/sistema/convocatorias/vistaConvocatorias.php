@@ -2,15 +2,15 @@
 
 <div class="row">
     <div class="col col-md-2 form-group">
-        <button type="button" class="btn btn-primary form-control" data-toggle="modal" 
+        <button type="button" class="btn btn-primary form-control" data-toggle="modal"
         data-target="#nuevaconvocatoria">
             Agregar Convocatoria
         </button>
-        
+
     </div>
-</div> 
+</div>
     <div class="row" id="resultados">
-        <?php 
+        <?php
                 if(isset($datos))
                 {
                     echo $datos['tabla'];
@@ -29,8 +29,8 @@
       </div>
         <form class="formulario" id="form_conv" method="post">
             <div class="modal-body">
-                      
-                        
+
+
                         <div class="form-row">
                               <div class="form-group col-md-3">
                                 <label for="tfFechaConvocatoria">Fecha Convocatoria</label>
@@ -57,9 +57,9 @@
                                       <option value="14">Enero-Abril</option>
                                       <option value="58" >Mayo-Agosto</option>
                                       <option value="912" >Septiembre-Diciembre</option>
-                                      
+
                                     </select>
-                              </div> 
+                              </div>
                           </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
@@ -94,7 +94,7 @@
                                     echo " <input type='date' value='".$datos['fecha']->hoy()."' class='form-control' id='tfInicioPrg' placeholder='FechaConvocatoria' required='true'>";
                                     ?>
 
-                                 
+
                                 </div>
 
                                 <div class="form-group col-md-3 ">
@@ -105,9 +105,9 @@
                                 </div>
 
                               </div>
-                               
+
                         </div>
-                  
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -140,8 +140,8 @@
       </div>
         <form class="formularioEd" id="form_convedit" method="post">
             <div class="modal-body">
-                      
-                        
+
+
                         <div class="form-row">
                               <div class="form-group col-md-3">
                                 <label for="tfFechaConvocatoriaEd">Fecha Convocatoria</label>
@@ -151,7 +151,7 @@
                               <div class="form-group col-md-3">
                                 <label for="tfFinCnvEd">Fin Convocatoria</label>
                                   <input type="date" name="" class="form-control" id="tfFinCnvEd" placeholder="Fin de la convocatoria" required="true">
-                                  
+
                               </div>
                               <div class="form-group col-md-6">
                                     <label for="cbPeriodoEd">Periodo</label>
@@ -159,9 +159,9 @@
                                       <option id="Ed14" value="14">Enero-Abril</option>
                                       <option id="Ed58" value="58" >Mayo-Agosto</option>
                                       <option id="Ed912" value="912" >Septiembre-Diciembre</option>
-                                      
+
                                     </select>
-                              </div> 
+                              </div>
                           </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
@@ -191,22 +191,22 @@
                               <div class="form-group col-md-12">
                                 <div class="form-group col-md-3">
                                   <label for="tfInicioPrgEd">Fecha Prorroga</label>
-                                   <input type="date" name="" class="form-control" id="tfInicioPrgEd" placeholder="FechaConvocatoriaEd"  required="true">               
+                                   <input type="date" name="" class="form-control" id="tfInicioPrgEd" placeholder="FechaConvocatoriaEd"  required="true">
                                 </div>
 
                                 <div class="form-group col-md-3 ">
                                   <label for="tfFinPrgEd">Fin Prorroga</label>
-                                    
+
                                     <input type="date" name="" class="form-control" id="tfFinPrgEd" placeholder="Fin de la convocatoria" required="true">
 
 
-                                    
+
                                 </div>
 
                               </div>
-                               
+
                         </div>
-                  
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -245,8 +245,8 @@
                                 <option value="14">2019 Enero-Abril</option>
                                 <option value="58" >2019 Mayo-Agosto</option>
                                 <option value="912" >2019 Septiembre-Diciembre</option>
-                                
+
                               </select>
                               <input type="checkbox" name="activo" value="1">Activo<br>
     </div> -->
-<script src="recursos/sistema/js/convocatorias.js"></script> 
+<script src="recursos/sistema/js/convocatorias.js"></script>

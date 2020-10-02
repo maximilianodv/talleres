@@ -44,9 +44,9 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 
 		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
 		$finproroga= $oDate4->format("d-m-Y");
-		$oDate5 = new DateTime("20-01-2021 10:00:00");
+		$oDate5 = new DateTime("15-01-2021 10:00:00");
 		$hoy= $oDate5->format("d-m-Y");
-		$rellenobotoninsc=true;
+		$rellenobotoninsc=false;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
 
 		//echo date("Y-m-d H:i:s");
@@ -58,12 +58,12 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     }
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
 		if($fechasconv<=$hoy && $hoy<=$fechafin){
-							//$rellenobotoninsc=true;
+							$rellenobotoninsc=true;
 				}
 
 	else if($fechaproroga<=$hoy && $hoy<$finproroga){
- 						$sql="";
-						//$rellenobotoninsc=true;
+ 						//$sql="";
+						$rellenobotoninsc=true;
  							//sql de proroga
  			}
 /*

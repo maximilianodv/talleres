@@ -16,7 +16,8 @@ class ControladorPublicidad extends Controlador
 	public function index()
 	{
 		$sesion=Session::get_SESSION();
-
+		//la variable vista contendre el index de la pagina por si lo de mas falla
+		$vista=new Vista("mvc/vistas/publicidad/index.php");
 		if(isset($sesion["matricula"]))
 		{
 

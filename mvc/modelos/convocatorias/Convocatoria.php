@@ -9,9 +9,10 @@ class Convocatoria
   private $convocatoriafecha;
   private $activo;
   private $finconvocatoria;
+  private $iffinalizado;
   private $prginicio;
   private $prgfin;
-  public function __construct($claveconvocatoria=null, $periodo=null, $anio=null, $alumnosmin=null,$alumnosmax=null,$convocatoriafecha=null,$finconvocatoria=null,$activo=null,$prginicio=null,$prgfin=null)
+  public function __construct($claveconvocatoria=null, $periodo=null, $anio=null, $alumnosmin=null,$alumnosmax=null,$convocatoriafecha=null,$finconvocatoria=null,$activo=null,$iffinalizado=null,$prginicio=null,$prgfin=null)
   {
     $this->claveconvocatoria = $claveconvocatoria;
     $this->periodo = $periodo;
@@ -21,9 +22,10 @@ class Convocatoria
     $this->convocatoriafecha= $convocatoriafecha;
     $this->activo= $activo;
     $this->finconvocatoria=$finconvocatoria;
+    $this->iffinalizado=$iffinalizado;
     $this->prginicio=$prginicio;
     $this->prgfin=$prgfin;
-    
+
   }
 
 function getClaveConvocatoria()
@@ -66,6 +68,9 @@ function getPrgFin()
 {
   return $this->prgfin;
 }
+function getIfFinalizado(){
+  return $this->iffinalizado;
+}
 
 function setClaveConvocatoria($claveconvocatoria)
 {
@@ -107,4 +112,8 @@ function setPrgFin($prgfin=null)
 {
   $this->prgfin=$prgfin;
 }
+function setIfFinalizado($iffinalizado=null){
+  $this->iffinalizado=$iffinalizado;
+}
+
 }

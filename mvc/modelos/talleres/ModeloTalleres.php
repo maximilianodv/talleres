@@ -3,12 +3,12 @@ class ModeloTalleres extends ConexionBD
 {
 
   private $taller;
-  public function __construct() 
+  public function __construct()
   {
     parent::__construct();
     require_once 'mvc/modelos/talleres/Taller.php';
- 
-    
+
+
   }
   public function mostrarreporte()
   {
@@ -31,7 +31,7 @@ class ModeloTalleres extends ConexionBD
       </tr>
     <thead>
     <tbody>";
-     while($row = $resultSet->fetch_array()) 
+     while($row = $resultSet->fetch_array())
       {
         $taller=$row[0];
 
@@ -40,7 +40,7 @@ class ModeloTalleres extends ConexionBD
         $nombrecompleto=$nombre." ".$apellidos;
         $dias=$row[3];
         $horario=$row[4];
-        
+
         $salida .= "
         <tr>
           <td>$taller</td>
@@ -48,8 +48,8 @@ class ModeloTalleres extends ConexionBD
           <td>$dias</td>
           <td>$horario</td>
         </tr>";
-      }  
-    $salida .= "</tbody></table>";    
+      }
+    $salida .= "</tbody></table>";
 
     return $salida;
 
@@ -57,7 +57,7 @@ class ModeloTalleres extends ConexionBD
 
 
    public function mostrar()
-  { 
+  {
     $resultSet=$this->conexion->query("SELECT * FROM TALLERES");
     $salida = "
     <table id='example2' class='table table-bordered table-hover'>
@@ -72,15 +72,15 @@ class ModeloTalleres extends ConexionBD
       </tr>
     <thead>
     <tbody>";
-    while($row = $resultSet->fetch_array()) 
+    while($row = $resultSet->fetch_array())
       {
         $id=$row[0];
         $nombre=$row[1];
         $horas=$row[2];
         $convocatoria=$row[3];
-       
+
         $descripcion=$row[7];
-        
+
 
         $salida .= "
         <tr id=$id >
@@ -91,19 +91,19 @@ class ModeloTalleres extends ConexionBD
           <td>
             <button type='button' data-id='$id' class='btnEditarT'>Editar</button>
             <button type='button' data-id='$id' class='btnEliminarT'>Eliminar</button>
-          </td>            
+          </td>
         </tr>";
-      }  
-    $salida .= "</tbody></table>";    
+      }
+    $salida .= "</tbody></table>";
 
     return $salida;
   }
-  
+
   public function insertar($taller)
   {
     $salida="";
     //se declaran lavariables
-  
+
     $this->taller=$taller;
 
       //verificar insert verifica que proceso salio mal, si todos los procesos salieron arrojara un 0 al sumar lo que retorna cada funcion, si alguna falla no se hace el registro en ninguna tabla
@@ -118,7 +118,7 @@ class ModeloTalleres extends ConexionBD
     return "<script> alert('"."error al registro de ".$this->taller->getCarrera()."');</script>";
     }
 
-   // 
+   //
       /*
     $exito_query_ok=false; // our control variable
 
@@ -150,25 +150,25 @@ class ModeloTalleres extends ConexionBD
     $tipousuario=$usuario->getTipoUsuario();
     //hacela insersion
     $insertar="INSERT INTO USUARIOS VALUES ('".$id."','".$nombre."','".$apellidos."','".$correo."','".$password."',".$activo.",".$creado.",'".$tipousuario."')";
-  
+
 
     try{
-          //el if conprueba si todo es correcto 
+          //el if conprueba si todo es correcto
         if( !$this->conexion->query($insertar))
-          { 
-        throw new Exception('error!'); 
+          {
+        throw new Exception('error!');
           }
-          
+
       }
         catch( Exception $e )
         {
           //si hubo un erro en el registro enviara el 1 el cual basta para cancelar los registros
           return 1;
-          
+
         }
         //si salio todo bien envia un cero
      return 0;
-      
+
     /*$sql="SELECT *FROM USUARIOS WHERE Correo='".$usuario->getCorreo()."'";
               $this->resultados=$this->conexion->query($sql);
               $row=$this->resultados->fetch_array();
@@ -176,15 +176,15 @@ class ModeloTalleres extends ConexionBD
               $usuario->setId_Usuario($id_usuario);*/
     /*$salida.=" <br>$id<br>$nombre<br>$apellidos<br>$correo<br>$password<br>$activo<br>$creado<br><br>";*/
 
-   
-    
+
+
   }
- 
+
   public function insertarTaller($taller)
   {
     $salida="";
     $this->conexion->autocommit(FALSE);
-    
+
     $id=$taller->getId_Taller();
     $nombretaller=$taller->getNombre();
     $horas=$taller->getNo_Horas();
@@ -203,16 +203,16 @@ class ModeloTalleres extends ConexionBD
     //echo $insertar;
 
     try{
-  
+
         if( !$this->conexion->query($insertar))
-          { 
-        throw new Exception('error!'); 
+          {
+        throw new Exception('error!');
           }
-         
+
       }
         catch( Exception $e )
         {
-          
+
           //$this->conexion->rollback();
           return 1;
         }
@@ -224,7 +224,7 @@ class ModeloTalleres extends ConexionBD
   {
     //se declara la variable como 0
     $id=0;
-    
+
      $sql="SELECT MAX(id_usuario)AS id_usuario from USUARIOS";
      //la consulta arrojara el numero mayor de la tabla y se sumara 1
      //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
@@ -239,20 +239,20 @@ class ModeloTalleres extends ConexionBD
   {
      $resultSet=$this->conexion->query("SELECT * FROM USUARIOS WHERE TipoUsuario='INSTRUCTOR'");
     $salida = "";
-    while($row = $resultSet->fetch_array()) 
+    while($row = $resultSet->fetch_array())
       {
         //row[0] es la columna 0 de la tabla que se esta consultado
         $id=$row[0];
         $nombre=$row[1];
         $apellidos=$row[2];
         $nombrecompleto=$nombre." ".$apellidos;
-        
+
         $salida .=
         "
           <option value='$id'>$nombrecompleto</option>
         ";
-      }  
-    return $salida;    
+      }
+    return $salida;
   }
   public function inprimearreglos($arreglo,$separador=null)
   {
@@ -262,20 +262,20 @@ class ModeloTalleres extends ConexionBD
       {
         if($salida!="")
         {
-          $salida=$salida.$separador.$fila;  
+          $salida=$salida.$separador.$fila;
         }
         else
         {
-          $salida=$salida.$fila;   
+          $salida=$salida.$fila;
         }
-        
+
       }
-      
+
       return $salida;
   }
   public function generaconvocatoria($carrera)
   {
-      $convocatoria=$this->conexion->query("SELECT TALLERES.Nombre,USUARIOS.Nombre,USUARIOS.Apellidos,TALLERES.Dia_s,TALLERES.HorarioFROM talleres.talleres,TALLERES.USUARIOS WHERE Carrera='{$carrera}' AND USUARIOS.Id_Usuario=TALLERES.Id_Usuario");    
+      $convocatoria=$this->conexion->query("SELECT TALLERES.Nombre,USUARIOS.Nombre,USUARIOS.Apellidos,TALLERES.Dia_s,TALLERES.HorarioFROM talleres.talleres,TALLERES.USUARIOS WHERE Carrera='{$carrera}' AND USUARIOS.Id_Usuario=TALLERES.Id_Usuario");
       $salida="";
       while ($row=$convocatoria->fetch_array())
       {
@@ -283,7 +283,7 @@ class ModeloTalleres extends ConexionBD
         $instructor=$row[1]." ".$row[2];
         $dias=$row[3];
         $horario=$row[4];
-        
+
         $salida.="$taller "."$instructor "."$dias "."$horario";
 
       }
@@ -291,7 +291,7 @@ class ModeloTalleres extends ConexionBD
   }
   public function maxalum($perido=null)
   {
-       
+
      $sql="SELECT AlumnosMax FROM CONVOCATORIAS WHERE ClaveConvocatoria=$perido";
          $this->resultados=$this->conexion->query($sql);
               $row=$this->resultados->fetch_array();
@@ -324,11 +324,18 @@ class ModeloTalleres extends ConexionBD
 
       $salida.="<option value='$id'> $nombre $nivel </option>";
     }
-    $salida.="</select>";
-
+      $salida.="</select>";
     return $salida;
   }
-  
+    public function deltalumtallers($taller){
+      $slq="DELETE FROM TALLERES.INSTALLERS WHERE (TALLERES_id_taller='{$taller}')";
+      $this->conexion->query($sql);
+    }
+    public function eliminartaller($taller){
+      $sql="DELETE FROM TALLERES.TALLERES WHERE (id_taller = '{$taller}')";
+      $this->conexion->query($sql);
+    }
 
-}
 
+
+  }

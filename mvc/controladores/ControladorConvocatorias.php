@@ -69,7 +69,7 @@ class ControladorConvocatorias extends Controlador
 			    	break;
 			}
 
-	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
+	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,0,$inicioprg,$finprg);
 
 	   	$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
 

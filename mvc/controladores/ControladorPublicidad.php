@@ -17,7 +17,10 @@ class ControladorPublicidad extends Controlador
 	{
 		$sesion=Session::get_SESSION();
 		//la variable vista contendre el index de la pagina por si lo de mas falla
+		$fecccc=$this->convocatorias->fechasperiodoactual();
+		//print_r($fecccc["ConvocatoriaFecha"]);
 		$vista=new Vista("mvc/vistas/publicidad/index.php");
+		echo $sesion["matricula"];
 		if(isset($sesion["matricula"]))
 		{
 
@@ -31,7 +34,13 @@ class ControladorPublicidad extends Controlador
 		}
 		else
 		{
-			$datos=array('talleres'=>$this->model->mostrar(false,$this->convocatorias->periodoactual(),null,null,$this->convocatorias->fechasperiodoactual()));
+			$datos=array(
+				'talleres'=>$this->model->mostrar(false,
+																					$this->convocatorias->periodoactual(),
+																					null,
+																					null,
+																					$this->convocatorias->fechasperiodoactual()
+																					));
 		}
 
 		if($datos==null||$datos==""||count($datos)==0){

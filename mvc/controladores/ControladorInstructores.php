@@ -32,10 +32,10 @@ class ControladorInstructores extends Controlador
 
     	$this->model->insertar($usuario,$instructor);
     	echo $this->model->mostrar();
-	
+
 	}
 	public function registrar()
-	{	
+	{
 		$resultado="";
 		$nombre=$_GET["Nombre"];
 		$apellidos=$_GET["Apellidos"];
@@ -46,7 +46,7 @@ class ControladorInstructores extends Controlador
 		$idcargo=$_GET["Idcargo"];
 		$creado=$_GET["Creado"];
 		$this->model->insertar($nombre,$apellidos,$nombreusuario,$correo,$contrasena,$activo,$idcargo,$creado);
-		
+
 
 	}
 
@@ -65,13 +65,13 @@ class ControladorInstructores extends Controlador
 		$id=$_POST["id"];
 		if($this->model->eliminar($id)==1)
 		{
-			echo $this->model->mostrartabla();	
+			echo $this->model->mostrartabla();
 		}
 		else
 		{
-			echo "0";	
+			echo "0";
 		}
-		
+
 	}
 	public function modificar()
 	{		$id=$_POST["id"];
@@ -82,7 +82,7 @@ class ControladorInstructores extends Controlador
 			$contrasena=$_POST["contrasena"];
 			$cargo=$_POST["cargo"];
 			$actcontrasena=$_POST["actcontrasena"];
-			$fecha=$_POST["fecha"];			
+			$fecha=$_POST["fecha"];
 			$this->model->modificar($id,$nombre,$apellidos,$nombreusuario,$correo,$contrasena,$cargo,$actcontrasena,$fecha);
 			echo $this->model->actualizarfila($id);
 	}
@@ -96,7 +96,7 @@ class ControladorInstructores extends Controlador
 	{
 		echo $this->model->mostrartabla();
 	}
-	
+
 }
 
 ?>

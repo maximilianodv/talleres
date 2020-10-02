@@ -31,20 +31,27 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 		print_r($hoy[wday]);*/
 		//print_r(date());
 	//	echo $fechasconv["inicio"];
-		//echo $fechasconv["fin"];
-		$oDate1 = new DateTime($fechasconvarg["inicio"]);
+
+
+		$fecha1 = DateTime::createFromFormat('Y-m-d',$fechabd["ConvocatoriaFecha"]);
+		$fecha2 = DateTime::createFromFormat('Y-m-d',$fechabd["CierreConvocatoria"]);
+		$fecha3 = DateTime::createFromFormat('Y-m-d',$fechabd["ProrrogaInicio"]);
+		$fecha4 = DateTime::createFromFormat('Y-m-d',$fechabd["ProrrogaFin"]);
+	//echo $fecha;
+
+		$oDate1 = new DateTime($fecha1);
 		$fechasconv = $oDate1->format("d-m-Y");
 
-
-		$oDate2 = new DateTime($fechasconvarg["fin"]);
+		$oDate2 = new DateTime($fecha2);
 		$fechafin = $oDate2->format("d-m-Y");
 
-		$oDate3 = new DateTime($fechasconvarg["PrInicio"]);
+		$oDate3 = new DateTime($fecha3);
 		$fechaproroga = $oDate3->format("d-m-Y");
 
-		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
+		$oDate4 = new DateTime($fecha4);
 		$finproroga= $oDate4->format("d-m-Y");
-		$oDate5 = new DateTime("15-01-2021 10:00:00");
+
+		$oDate5 = new DateTime("02-10-2021 10:00:00");
 		$hoy= $oDate5->format("d-m-Y");
 		$rellenobotoninsc=false;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);

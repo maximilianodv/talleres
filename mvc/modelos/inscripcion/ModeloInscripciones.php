@@ -64,6 +64,7 @@ class ModeloInscripciones extends ConexionBD
 		$this->resultados=$this->conexion->query($sql);
 		$row=$this->resultados->fetch_array();
 		$fechabd=$this->fechasconvocatorias($periodo);
+
 		$oDate5 = new DateTime("15-01-2021");
 		$hoy= $oDate5->format("Y-m-d");
 

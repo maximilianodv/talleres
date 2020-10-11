@@ -21,41 +21,30 @@ class ModeloPublicidad extends ConexionBD
         return $dis;
 
   }
-public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null,$fechasconvarg=null,$fechacierre=null,$prorogainicio=null,$prorogafion=null){
+public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=null,$fechasconvarg=null){
     $inscripcion="";
     $condicion2="";
     $condicion3="";
     $espacios="";
 		$sql="";
-		/*print_r($hoy[mon]);
-		print_r($hoy[wday]);*/
-		//print_r(date());
-	//	echo $fechasconv["inicio"];
-
-
-		$fecha1 = DateTime::createFromFormat('Y-m-d',$fechabd["ConvocatoriaFecha"]);
-		$fecha2 = DateTime::createFromFormat('Y-m-d',$fechabd["CierreConvocatoria"]);
-		$fecha3 = DateTime::createFromFormat('Y-m-d',$fechabd["ProrrogaInicio"]);
-		$fecha4 = DateTime::createFromFormat('Y-m-d',$fechabd["ProrrogaFin"]);
-	//echo $fecha;
-
-		$oDate1 = new DateTime($fecha1);
+		$oDate1 = new DateTime($fechasconvarg["inicio"]);
 		$fechasconv = $oDate1->format("d-m-Y");
 
-		$oDate2 = new DateTime($fecha2);
+		$oDate2 = new DateTime($fechasconvarg["fin"]);
 		$fechafin = $oDate2->format("d-m-Y");
 
-		$oDate3 = new DateTime($fecha3);
+		$oDate3 = new DateTime($fechasconvarg["PrInicio"]);
 		$fechaproroga = $oDate3->format("d-m-Y");
 
-		$oDate4 = new DateTime($fecha4);
+		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
 		$finproroga= $oDate4->format("d-m-Y");
 
-		$oDate5 = new DateTime("02-10-2021 10:00:00");
+		$oDate5 = new DateTime("7-10-2020");
 		$hoy= $oDate5->format("d-m-Y");
+
 		$rellenobotoninsc=false;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
-
+		$salida="";
 		//echo date("Y-m-d H:i:s");
     if($taller!=null){
 			$condicion2=" AND id_taller=$taller";
@@ -63,30 +52,23 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     if($nivel!=null){
       $condicion3="AND Carrera='$nivel'";
     }
+
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
 		if($fechasconv<=$hoy && $hoy<=$fechafin){
 							$rellenobotoninsc=true;
-				}
+		}
 
-	else if($fechaproroga<=$hoy && $hoy<$finproroga){
+	else if($fechaproroga<=$hoy && $hoy<$finproroga ){
  						//$sql="";
 						$rellenobotoninsc=true;
  							//sql de proroga
  			}
-/*
-		else*/
-/*		else if($finproroga<$hoy){
-				echo "queodna";
-				$sql="";
-		}*/
 
-		$salida="";
     if($this->conexion->query($sql)!=null||$sql!=""){
 			$consulta=$this->conexion->query($sql);
         while ($row=$consulta->fetch_array()){
 					$id=$row['id_taller'];
           $nombre=$row["Nombre"];
-				//	$fechasconv="2020-02-02";
 					$min=$row['Min'];
           $nivel=$row['Carrera'];
           $espacio=$this->escdisp($id,$periodo,$nivel);
@@ -95,13 +77,12 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
             $inscripcion=$taller!=null?"<p class='box-modern-title'>Inscrito</p>":
                     "
                <button type='button' class='button button-primary sm inscripcion' data-toggle='modal' data-target='#exampleModal' data-nombre='$nombre' data-id='$id' onclick='inscripcion(this);'>
-                  Incribirse $periodo
+                  Incribirse
                 </button>";
               }
           if($espacio==0)
               {
                   $salida.=" <div class='col-sm-6 col-lg-4'>
-                <!-- Box Modern-->
                 <article class='box-modern wow fadeIn' data-anime='circles-2'>
                   <div class='box-modern-media'>
                     <div class='box-modern-icon mdi mdi-television-guide'></div>
@@ -139,19 +120,14 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
                       </article>
                     </div>";
               }
-
-
-        }
-
-
+						}
     }
 
 		if($salida==null||$salida==""){
 			$salida="<h3 class='wow fadeIn' style='visibility: visible; animation-name: fadeIn;'>Finalizado</h3>";
 		}
-		/*$fechaactual="2020-09-13";
-		$salida=$fechaactual=="2020-09-13"?"<h1>Perido terminado</h1>":"";*/
-    return $salida;
+
+		return $salida;
 }
 public function categoria($categoria)
 {

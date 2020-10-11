@@ -13,17 +13,13 @@ class ControladorPublicidad extends Controlador
 		parent::__construct();
 
 	}
-	public function index()
-	{
+	public function index(){
 		$sesion=Session::get_SESSION();
-		//la variable vista contendre el index de la pagina por si lo de mas falla
-		$fecccc=$this->convocatorias->fechasperiodoactual();
-		//print_r($fecccc["ConvocatoriaFecha"]);
-		$vista=new Vista("mvc/vistas/publicidad/index.php");
-		echo $sesion["matricula"];
+		$fchFinalizado=$this->convocatorias->fechasperiodoactual();
+		//para que funcionaa se modifico en ModeloConvocatoria periodoactual()
+		
 		if(isset($sesion["matricula"]))
 		{
-
 			$datos=array('combocarreras'=>$this->carrerasnivel(),
 			'talleres'=>$this->model->mostrar(true,
 																				$this->convocatorias->periodoactual(),
@@ -32,8 +28,7 @@ class ControladorPublicidad extends Controlador
 																				$this->convocatorias->fechasperiodoactual()
 																			),'usuario'=>$sesion["usuario"],'combogrados'=>$this->model->combogrados($this->convocatorias->periodoactual()));
 		}
-		else
-		{
+		else{
 			$datos=array(
 				'talleres'=>$this->model->mostrar(false,
 																					$this->convocatorias->periodoactual(),
@@ -42,11 +37,10 @@ class ControladorPublicidad extends Controlador
 																					$this->convocatorias->fechasperiodoactual()
 																					));
 		}
-
-		if($datos==null||$datos==""||count($datos)==0){
-			$datos="<h1>El periodo ha finalizado</h1>";
+		if($fchFinalizado["Finalizado"]==1){
+			$datos="";
 		}
-		$vista=new Vista("mvc/vistas/publicidad/index.php",$datos);
+				$vista=new Vista("mvc/vistas/publicidad/index.php",$datos);
 	}
 	public function secciones()
 	{
@@ -62,21 +56,16 @@ class ControladorPublicidad extends Controlador
 		$inscrito=null;
 		$valor=false;
 
-		if(isset($sesion["matricula"]))
-		{
+		if(isset($sesion["matricula"])){
 			$valor=true;
 			$inscrito=$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual());
-
 			return $this->model->mostrar(true,
 																				$this->convocatorias->periodoactual(),
 																				$sesion["nivel"],
 																				$this->verificarins($sesion["matricula"],$this->convocatorias->periodoactual()),
 																				$this->convocatorias->fechasperiodoactual());
 		}
-
-
 		return  $this->model->mostrar($valor,$this->convocatorias->periodoactual(),null,$inscrito,$this->convocatorias->fechasperiodoactual());
-
 	}
 
 	public function carrerasnivel()
@@ -110,11 +99,7 @@ class ControladorPublicidad extends Controlador
 		}
 
 	}
-	public function inscribirperiodo()
-	{
-
-
-	//	$ifproroga=$_POST["ifproroga"];
+	public function inscribirperiodo(){
 		$carrera=$_POST["carrera"];
 		$grado=$_POST["grado"];
 		$grupo=$_POST["grupo"];
@@ -124,16 +109,10 @@ class ControladorPublicidad extends Controlador
 		$con=$this->convocatorias->periodoactual();
 		$estainscrito=$this->inscripciones->iffininscripcion($matricula,$con);
 		$inscripcion= new Inscripcion($matricula,null,$carrera,$grado,$grupo,null,$con);
-		if($matricula!="" && $estainscrito)
-		{
-
+		if($matricula!="" && $estainscrito){
 			$this->inscripciones->insertar($inscripcion,$taller);
-
 			$respuesta["abc"]=$this->mostrar();
-
 		}
-
-
 		echo json_encode($respuesta);
 	}
 	/*public function push()

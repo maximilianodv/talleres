@@ -251,8 +251,8 @@ class ModeloConvocatorias extends ConexionBD
   }
    public function periodoactual()
   {
-
-     $sql="SELECT ClaveConvocatoria FROM CONVOCATORIAS WHERE Activo=1 AND Finalizado=0";
+    //para que funcione mostrar se elimino el parametro "AND Finalizado=0"
+     $sql="SELECT ClaveConvocatoria FROM CONVOCATORIAS WHERE Activo=1";
      //la consulta arrojara el numero mayor de la tabla y se sumara 1
      //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
         $this->resultados=$this->conexion->query($sql);
@@ -262,7 +262,8 @@ class ModeloConvocatorias extends ConexionBD
         return $convocatoria;
   }
   public function fechasperiodoactual(){
-   $sql="SELECT ConvocatoriaFecha AS inicio,CierreConvocatoria AS fin,ProrrogaInicio AS PrInicio,ProrrogaFin AS PrFin FROM CONVOCATORIAS WHERE Activo=1 AND Finalizado=0";
+    //para que funcione mostrar se elimino el parametro "AND Finalizado=0"
+   $sql="SELECT Finalizado,ConvocatoriaFecha AS inicio,CierreConvocatoria AS fin,ProrrogaInicio AS PrInicio,ProrrogaFin AS PrFin FROM CONVOCATORIAS WHERE Activo=1";
    //la consulta arrojara el numero mayor de la tabla y se sumara 1
    //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
       $this->resultados=$this->conexion->query($sql);

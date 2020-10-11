@@ -22,8 +22,7 @@ class ModeloInscripciones extends ConexionBD
     	$verificarinsert=$verificarinsert+$this->inscripciontaller($inscripcion,$installer);
     	return $verificarinsert;
 	}
-	public function inscripcion($inscripcion,$taller)
-	{
+	public function inscripcion($inscripcion,$taller){
 		 //se desactiva el autocomit
 	  //se declaran las variables con el valor del objeto
 
@@ -65,25 +64,21 @@ class ModeloInscripciones extends ConexionBD
 		$row=$this->resultados->fetch_array();
 		$fechabd=$this->fechasconvocatorias($periodo);
 
-		$oDate5 = new DateTime("15-01-2021");
+		$oDate5 = new DateTime("2020-10-10");
 		$hoy= $oDate5->format("Y-m-d");
 
-		$oDate1 = new DateTime("19-01-2021");
-		$fechaproroga= $oDate1->format("Y-m-d");
-
-		$oDate2 = new DateTime("22-01-2021");
-		$finproroga= $oDate2->format("Y-m-d");
-
 		if($row['Matricula']==null||$row['Matricula']==""){
-		//	$fechaproroga<=$hoy && $hoy<$finproroga
-			if($fechabd["ProrrogaInicio"]<=$hoy && $hoy<$fechabd["ProrrogaFin"]){
-					return false;
-			}
-			else {
+			if($fechabd["ConvocatoriaFecha"]<=$hoy && $hoy<$fechabd["CierreConvocatoria"]){
 					return true;
 			}
+			else {
+					return false;
+			}
 		}
-		return true;
+		else{
+				return true;
+		}
+
 	}
 	public function fechasconvocatorias($clave){
 		$sql="SELECT * FROM TALLERES.CONVOCATORIAS WHERE ClaveConvocatoria=$clave";

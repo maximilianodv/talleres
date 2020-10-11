@@ -77,17 +77,8 @@
               <div class="row row-30 row-xl-60" id="talleres">
                 <?php
                     echo $datos['talleres'];
-
-
-
-                ?>
+                  ?>
               </div>
-               <!-- Button trigger modal
-                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdlconvocatoria">
-                    Launch demo modal
-                  </button>
-                -->
-
 
 
             </div>

@@ -89,8 +89,15 @@ class ModeloTalleres extends ConexionBD
           <td>$convocatoria</td>
           <td>$descripcion</td>
           <td>
-            <button type='button' data-id='$id' class='btnEditarT'>Editar</button>
-            <button type='button' data-id='$id' class='btnEliminarT'>Eliminar</button>
+
+
+            <button type='button' data-id='$id' data-clave='$clave' class='btnEditarT  btn btn-primary btn-sm' data-target='#editinstr' data-toggle='modal' >
+              <i class='fa fa-edit  fa-lg text-white'  data-toggle='modal' data-target='#editinstr' ></i>
+            </button>
+            <button type='button' data-id='$id' class='btnEliminarT btn btn-danger btn-sm'>
+              <i class='fa fa-trash  fa-lg text-white'  data-toggle='modal' data-target='#modalconfirmar'></i>
+            </button>
+
           </td>
         </tr>";
       }

@@ -46,7 +46,7 @@ function inscperiodo(id)
   miPrimeraPromise.then((successMessage) => {
     // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
     // No tiene por qué ser un string, pero si solo es un mensaje de éxito, probablemente lo sea.
-    
+
     const url = 'index.php?controlador=ControladorPublicidad&accion=inscribirperiodo';
     const http = new XMLHttpRequest();
     var carrera=document.getElementById("cbCarrera").value;

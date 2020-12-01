@@ -39,7 +39,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
 		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
 		$finproroga= $oDate4->format("d-m-Y");
 
-		$oDate5 = new DateTime("7-10-2020");
+		$oDate5 = new DateTime("07-10-2020");
 		$hoy= $oDate5->format("d-m-Y");
 
 		$rellenobotoninsc=false;
@@ -349,7 +349,16 @@ public function categoria($categoria)
 			}
 			return $salida;
 
-	}*/
+	}
+	SELECT NOCOMPLETOS.TALLERES_id_taller
+FROM (
+		SELECT TALLERES_id_taller,COUNT(TALLERES_id_taller) AS CantInscritos
+        FROM TALLERES.INSTALLERS
+        GROUP BY TALLERES_id_taller)
+	AS NOCOMPLETOS
+	WHERE CantInscritos<=3;
+
+	*/
 
 
 }

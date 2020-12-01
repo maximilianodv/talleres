@@ -64,11 +64,11 @@ class ModeloInscripciones extends ConexionBD
 		$row=$this->resultados->fetch_array();
 		$fechabd=$this->fechasconvocatorias($periodo);
 
-		$oDate5 = new DateTime("2020-10-10");
+		$oDate5 = new DateTime("2020-10-09");
 		$hoy= $oDate5->format("Y-m-d");
 
 		if($row['Matricula']==null||$row['Matricula']==""){
-			if($fechabd["ConvocatoriaFecha"]<=$hoy && $hoy<$fechabd["CierreConvocatoria"]){
+			if($fechabd["ConvocatoriaFecha"]<=$hoy && $hoy<=$fechabd["CierreConvocatoria"]){
 					return true;
 			}
 			else {
@@ -76,7 +76,10 @@ class ModeloInscripciones extends ConexionBD
 			}
 		}
 		else{
-				return true;
+			if($fechabd["ProrrogaInicio"]<=$hoy && $hoy<=$fechabd["ProrrogaFin"]){
+					return true;
+			}
+				return false;
 		}
 
 	}

@@ -99,63 +99,93 @@ class ControladorConvocatorias extends Controlador
 	}
 	public function modificar()
 	{
+
 		$id=$_POST["id"];
-		//$idnew=$_POST["idnew"];
-		$periodo=$_POST["periodo"];
-		$anio=$_POST["anio"];
-	    $min=$_POST["min"];
-	    $max=$_POST["max"];
-	   	$apertura=$_POST["apertura"];
-	   	$claveper=$_POST["claveper"];
-	   	$finconvocatoria=$_POST["finconvocatoria"];
-	   	$inicioprg=$_POST["inicioprg"];
-	   	$finprg=$_POST["finprg"];
-	   	$id=$_POST["id"];
-	   	/*$minfrm = array();
-	   	$maxfrm=array();*/
-	   	$minfrm[0]=$min;
-        $maxfrm[0]=$max;
 
-        $minfrm[1]=$_POST["mining"];
-        $maxfrm[1]=$_POST["maxing"];
-	   	$ClaveConvocatoria=$anio.$claveper;
-	   	$cuatrimestre;
+		if($this->ifeditable($id))
+		{
+			//$idnew=$_POST["idnew"];
+			$periodo=$_POST["periodo"];
+			$anio=$_POST["anio"];
+				$min=$_POST["min"];
+				$max=$_POST["max"];
+				$apertura=$_POST["apertura"];
+				$claveper=$_POST["claveper"];
+				$finconvocatoria=$_POST["finconvocatoria"];
+				$inicioprg=$_POST["inicioprg"];
+				$finprg=$_POST["finprg"];
+				$id=$_POST["id"];
+				/*$minfrm = array();
+				$maxfrm=array();*/
+				$minfrm[0]=$min;
+					$maxfrm[0]=$max;
 
-
-
-	   	switch ($claveper)
-	   		{
-			    case 912:
-			        	$cuatrimestre[0] =1;
-						$cuatrimestre[1] =4;
-						$cuatrimestre[2] =7;
-						$cuatrimestre[3] =10;
-					break;
-			    case 14:
-			    		$cuatrimestre[0] = 2;
-						$cuatrimestre[1] =5;
-						$cuatrimestre[2] =8;
-					break;
-			    case 58:
-			    		$cuatrimestre[0] =3;
-						$cuatrimestre[1] =9;
-					break;
-
-			    case null:
-			    		$cuatrimestre= array(15,16);
-			    	break;
-			}
-
-	   	$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
-
-	   	$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
+					$minfrm[1]=$_POST["mining"];
+					$maxfrm[1]=$_POST["maxing"];
+				$ClaveConvocatoria=$anio.$claveper;
+				$cuatrimestre;
 
 
 
-	   	$this->model->updateconvocatoria($convocatoria,$id);
-	   	$this->model->updateespacios($ClaveConvocatoria,"ING",$minfrm[1],$maxfrm[1]);
-	   	$this->model->updateespacios($ClaveConvocatoria,"TSU",$min,$max);
-	   	echo $this->model->tblConvocatorias();
+				switch ($claveper)
+					{
+						case 912:
+									$cuatrimestre[0] =1;
+							$cuatrimestre[1] =4;
+							$cuatrimestre[2] =7;
+							$cuatrimestre[3] =10;
+						break;
+						case 14:
+								$cuatrimestre[0] = 2;
+							$cuatrimestre[1] =5;
+							$cuatrimestre[2] =8;
+						break;
+						case 58:
+								$cuatrimestre[0] =3;
+							$cuatrimestre[1] =9;
+						break;
+
+						case null:
+								$cuatrimestre= array(15,16);
+							break;
+				}
+
+				$convocatoria=new Convocatoria($ClaveConvocatoria,$periodo,$anio,$min,$max,$apertura,$finconvocatoria,1,$inicioprg,$finprg);
+
+				$grado=new Grado(1,$periodo,$anio,1,$ClaveConvocatoria);
+
+
+
+				$this->model->updateconvocatoria($convocatoria,$id);
+				$this->model->updateespacios($ClaveConvocatoria,"ING",$minfrm[1],$maxfrm[1]);
+				$this->model->updateespacios($ClaveConvocatoria,"TSU",$min,$max);
+
+				$this->model->eliminarvistas("TSU",$id,"convo");
+				$this->model->eliminarvistas("ING",$id,"convo");
+				$this->model->eliminarvistas("TSU",$id,"aeliminar");
+				$this->model->eliminarvistas("ING",$id,"aeliminar");
+				$this->model->deleventoaeliminar("ING",$id);
+				$this->model->deleventoaeliminar("TSU",$id);
+				$this->model->deleventoconvo("ING",$id);
+				$this->model->deleventoconvo("TSU",$id);
+				$this->model->delevento("ING",$id);
+				$this->model->delevento("TSU",$id);
+
+				$this->model->crearvistas("TSU",$ClaveConvocatoria);
+				$this->model->crearvistas("ING",$ClaveConvocatoria);
+				$this->model->listatalleredele("TSU",$ClaveConvocatoria);
+				$this->model->listatalleredele("ING",$ClaveConvocatoria);
+				$this->model->programarevet("TSU",$ClaveConvocatoria,$finconvocatoria);
+				$this->model->programarevet("ING",$ClaveConvocatoria,$finconvocatoria);
+				$this->model->deletevest("TSU",$ClaveConvocatoria,$finprg,"convo");
+				$this->model->deletevest("ING",$ClaveConvocatoria,$finprg,"convo");
+				$this->model->deletevest("TSU",$ClaveConvocatoria,$finprg,"aeliminar");
+				$this->model->deletevest("ING",$ClaveConvocatoria,$finprg,"aeliminar");
+
+
+				echo $this->model->tblConvocatorias();
+		}
+		echo "ocupado";
 	}
 
 	public function eliminar()
@@ -182,7 +212,13 @@ class ControladorConvocatorias extends Controlador
 	}
 	public function buscarmodclvper(){
 		$id=$_POST["claveper"];
-		echo json_encode($this->model->consulta($id,"modificar"));
+		$claveold=$_POST["claveold"];
+		if($this->ifeditable($claveold)){
+				echo json_encode($this->model->consulta($id,"modificar"));
+		}else{
+			echo   $respuesta["ifeditable"]="false";
+		}
+
 	}
 	public function historial(){
 		$matricula=$_POST["matricula"];
@@ -194,6 +230,10 @@ class ControladorConvocatorias extends Controlador
 		$this->model->interruptor($id,$interruptor);
 
 	}
+	public function ifeditable($id){
+		return $retorno =$this->model->ver_tallsconov($id);
+	}
+
 
 
 

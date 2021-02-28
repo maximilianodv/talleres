@@ -583,7 +583,7 @@ class ModeloConvocatorias extends ConexionBD
   }
   function programarevet($nivel,$clave,$finconvocatoria){
     $sql="CREATE EVENT evento".$nivel.$clave."
-          ON SCHEDULE AT '".$finconvocatoria." 01:03:00'
+          ON SCHEDULE AT '".$finconvocatoria." 11:59:59'
           DO DELETE TALLERES FROM TALLERES,aeliminar".$nivel.$clave." WHERE TALLERES.id_taller=aeliminar".$nivel.$clave.".id_taller";
     try{
       if( !$this->conexion->query($sql))
@@ -670,7 +670,23 @@ class ModeloConvocatorias extends ConexionBD
 
     return true;
   }
+  function ver_tallsconov($clave){
 
+    $sql="SELECT *FROM TALLERES WHERE Convocatoria=".$clave." LIMIT 1";
+    $this->resultados=$this->conexion->query($sql);
+    $convocaria="";
+          while($row =$this->resultados->fetch_array())
+          {
+              $convocaria=$row["Convocatoria"];
+          }
+    //$convocatoria=$row["ClaveConvocatoria"];
+    //$usuario->setId_Usuario($id_usuario);
+    if($convocaria==""){
+       return false;
+    }
+      return true;
+
+  }
 
 
 

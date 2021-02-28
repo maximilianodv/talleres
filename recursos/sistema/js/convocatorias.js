@@ -170,14 +170,10 @@ $("#tfMax").on("keypress",function()
 
 		var apertura=$('#tfFechaConvocatoriaEd').val();
 		var idold=document.getElementById("btnGuardarMod").getAttribute("data-idmod");
-		alert(idold);
 		var min=$('#tfMinEd').val();
 		var max=$('#tfMaxEd').val();
 		var claveper=$('#cbPeriodoEd').val();
 		var periodo = $('#cbPeriodoEd option:selected').text();
-
-		alert(claveper);
-		alert(periodo);
 		var finconvocatoria=$('#tfFinCnvEd').val();
 		var inicioprg=$('#tfInicioPrgEd').val();
 		var finprg=$('#tfFinPrgEd').val();
@@ -186,11 +182,8 @@ $("#tfMax").on("keypress",function()
 		var anio=apertura.substring(0,4);
 		var idnew=anio+claveper;
 		var encontrado="";
-		alert(idnew+"Este es el id nuevo");
-		alert(idold+"Este es el id viejo");
 
-
-		var datos={"claveper":idnew};
+		var datos={"claveper":idnew,"claveold":idold};
 		$.ajax
 		({
 			url:"index.php?controlador=ControladorConvocatorias&accion=buscarmodclvper",
@@ -212,97 +205,57 @@ $("#tfMax").on("keypress",function()
 			//console.log(resultados);
 
 			var objeto=JSON.parse(resultados);
-			console.log(objeto.encontrado);
-			if(idnew==idold){
-				alert("es la misma");
 
-			}
-			if(objeto.encontrado=="true"&&idnew!=idold){
-				alert("ya hay una convocatorias con los mismos datos");
-			}
+
+				//console.log(objeto.encontrado);
+				if(idnew==idold){
+
+
+				}
+				if(objeto.encontrado=="true"&&idnew!=idold){
+					alert("ya hay una convocatorias con los mismos datos");
+				}
+
+
 
 		}).then(function(r){
-				var objeto=JSON.parse(r);
-				console.log(objeto.encontrado);
+			var objeto=JSON.parse(r);
+			if(!objeto.ifeditable&&idold!=idnew){
+				alert("Hay talleres inscritos en la convocatoria");
 
-
-					alert("se ba ja modificar");
-					datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
+			}else{
+				datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
 					$.ajax
 					({
 						url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
 						data:datosmod,
 						type:"POST",
 						success: function(data)
-					 		{        		//alert('Registro Guardado');
-			        		console.log("Enviado");
-			        		},
-			      		error: function()
-			      			{
+							{        		//alert('Registro Guardado');
+									console.log("Enviado");
+									},
+								error: function()
+									{
 
-			        		console.log("Error en el envio de datos");
-			      			}
-
-					}).done(function(resultados)
-					{
-
-						$("#resultados").html(resultados);
-						$.getScript( "recursos/sistema/js/convocatorias.js");
-
-					});
-				/*if(idnew==idold){
-					alert("modificarr el mismo");
-					datosmod={"id":idold,"idnew":idnew,"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing};
-					$.ajax
-					({
-						url:"index.php?controlador=ControladorConvocatorias&accion=modificar",
-						data:datosmod,
-						type:"POST",
-						success: function(data)
-					 		{        		//alert('Registro Guardado');
-			        		console.log("Enviado");
-			        		},
-			      		error: function()
-			      			{
-
-			        		console.log("Error en el envio de datos");
-			      			}
+									console.log("Error en el envio de datos");
+									}
 
 					}).done(function(resultados)
 					{
 
-						$("#resultados").html(resultados);
-						$.getScript( "recursos/sistema/js/convocatorias.js");
+							$("#resultados").html(resultados);
+							$.getScript( "recursos/sistema/js/convocatorias.js");
+
+
 
 					});
-				}*/
+			}
 
 			});
 
-
-		/*let modificarr=new Promise((resolve, reject) => {
-			  // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
-			  // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
-			  // En la vida real, probablemente uses algo como XHR o una API HTML5.
-			  resolve(o); // ¡Todo salió bien!
-			});
-
-		modificarr.then((miPrimeraPromise) => {
-			  // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
-			  // No tiene por qué ser un string, pero si solo es un mensaje de éxito, probablemente lo sea.
-			  miPrimeraPromise();
-
-			});*/
-
-//		modificar();
 
 		return false;
-		/*var datos={"apertura":apertura,"anio":anio,"min":min,"max":max,"periodo":periodo,"claveper":claveper,"finconvocatoria":finconvocatoria,"inicioprg":inicioprg,"finprg":finprg,"mining":mining,"maxing":maxing,"id":id};
 
-
-
-
-		*/
 
 	});
 
@@ -484,7 +437,7 @@ $('.clsfinz').on("click",function(e) {
 		console.log(seleccion.srcElement.id);
 		var id=seleccion.srcElement.id;
 		var interruptor=seleccion.srcElement.checked?1:0;
-		
+
 
 		$.ajax
 		({

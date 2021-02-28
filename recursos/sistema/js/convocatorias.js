@@ -57,7 +57,7 @@ $(document).ready(function()
 					}).done(function(resultados)
 					{
 
-						console.log(resultados);
+						//console.log(resultados);
 						let fechainicio=document.getElementById("tfFechaConvocatoriaEd");
 						let fechafin=document.getElementById("tfFinCnvEd");
 						let maxtsu=document.getElementById("tfMaxEd");
@@ -67,7 +67,9 @@ $(document).ready(function()
 						let inicioprg=document.getElementById("tfInicioPrgEd");
 						let finprg=document.getElementById("tfFinPrgEd");
 						let btnguardar=document.getElementById("btnGuardarMod");
-						console.log(btnguardar);
+						//
+
+						//console.log(btnguardar);
 						btnguardar.setAttribute("data-idmod",clave);
 
 						//let periodo=document.getElementById("cbPeriodoEd");
@@ -78,6 +80,8 @@ $(document).ready(function()
 						fechafin.value=objeto.cierre;
 						maxtsu.value=objeto.esptsumax;
 						mintsu.value=objeto.esptsumin;
+
+
 						maxing.value=objeto.espingmax;
 						mining.value=objeto.espingmin;
 						inicioprg.value=objeto.prginicio;
@@ -433,8 +437,8 @@ function modificar(){
 
 $('.clsfinz').on("click",function(e) {
 	var seleccion=e.originalEvent;
-		console.log(seleccion.srcElement.checked);
-		console.log(seleccion.srcElement.id);
+		//console.log(seleccion.srcElement.checked);
+		//console.log(seleccion.srcElement.id);
 		var id=seleccion.srcElement.id;
 		var interruptor=seleccion.srcElement.checked?1:0;
 

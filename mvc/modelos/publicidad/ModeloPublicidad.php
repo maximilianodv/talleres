@@ -57,7 +57,7 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     if($nivel!=null){
       $condicion3="AND Carrera='$nivel'";
     }
-
+		//print_r("SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera");
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
 		if($fechasconv<=$hoy && $hoy<$fechafin){
 							$rellenobotoninsc=true;

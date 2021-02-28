@@ -76,6 +76,16 @@ class ControladorConvocatorias extends Controlador
 
 
 	   	$this->model->insertar($convocatoria,$grado,$cuatrimestre,$this->modeloespacios,$minfrm,$maxfrm);
+			$this->model->crearvistas("TSU",$ClaveConvocatoria);
+			$this->model->crearvistas("ING",$ClaveConvocatoria);
+			$this->model->listatalleredele("TSU",$ClaveConvocatoria);
+			$this->model->listatalleredele("ING",$ClaveConvocatoria);
+			$this->model->programarevet("TSU",$ClaveConvocatoria,$finconvocatoria);
+			$this->model->programarevet("ING",$ClaveConvocatoria,$finconvocatoria);
+			$this->model->deletevest("TSU",$ClaveConvocatoria,$finprg,"convo");
+			$this->model->deletevest("ING",$ClaveConvocatoria,$finprg,"convo");
+			$this->model->deletevest("TSU",$ClaveConvocatoria,$finprg,"aeliminar");
+			$this->model->deletevest("ING",$ClaveConvocatoria,$finprg,"aeliminar");
 
 	   	echo $this->model->tblConvocatorias();
 
@@ -153,6 +163,16 @@ class ControladorConvocatorias extends Controlador
 		$id=$_GET["idconvocatoria"];
 		//echo $id;
 		$this->model->eliminar($id);
+		$this->model->eliminarvistas("TSU",$id,"convo");
+		$this->model->eliminarvistas("ING",$id,"convo");
+		$this->model->eliminarvistas("TSU",$id,"aeliminar");
+		$this->model->eliminarvistas("ING",$id,"aeliminar");
+		$this->model->deleventoaeliminar("ING",$id);
+		$this->model->deleventoaeliminar("TSU",$id);
+		$this->model->deleventoconvo("ING",$id);
+		$this->model->deleventoconvo("TSU",$id);
+		$this->model->delevento("ING",$id);
+		$this->model->delevento("TSU",$id);
 		echo $this->model->tblConvocatorias();
 	}
 	public function buscar()

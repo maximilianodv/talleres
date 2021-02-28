@@ -1,18 +1,14 @@
-
-  <div class="row">
-    
-  
+<div class="row">
   <div class="col col-md-2 form-group">
-    <button type="button" class="btn btn-primary form-control" data-toggle="modal" 
-    data-target="#nuevoinstructor">
+    <button type="button" class="btn btn-primary form-control btnmdl" data-toggle="modal"
+    data-target="#nuevoinstructor" data-tpbt='btnGuardar' onclick="modal(this)">
         Agregar Instructor
     </button>
-     
   </div>
 
-  </div> 
+  </div>
     <div class="row" id="resultados">
-        <?php 
+        <?php
                 if(isset($datos))
                 {
                     echo $datos;
@@ -25,17 +21,18 @@
                     <form class="formulario" id="form_instr" method="post">
 
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Instructor</h5>
+                            <h5 class="modal-titleinst" id="agregarlabel" class="titulo">Agregar Instructor</h5>
+                            <h5 class="modal-titleinst" id="editarlabel"  class="titulo">Editar Instructor</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
-          
+
                         <div class="modal-body">
-                        
+
                             <div class="row">
                                 <div class="form-group">
-                                    
+
                                     <div class="col-md-3">
                                         <label for="tfNombre"
                                         class="control-label">Nombre</label>
@@ -74,11 +71,11 @@
                                             <input type="email" class="form-control" id="tfCorreo" placeholder="Correo">
                                         </div>
                                     </div>
-                                
+
                                 <!--    <div class="col-md-4" id="divimg">
-                                        
+
                                         <label for="imgSubir" id="lbimagen" >imagen</label>
-                                        <input type="file" name="archivo" id="imgSubir" require>        
+                                        <input type="file" name="archivo" id="imgSubir" require>
                                     </div>
                                 -->
 
@@ -94,7 +91,7 @@
                                                 </div>
                                                 <input type="text" class="form-control" id="tfTelefono" placeholder="Telefono">
                                             </div>
-    
+
                                         </div>
                                         <div class="col-md-3">
                                             <label for="tfPassword" class="control-label">Password</label>
@@ -114,10 +111,10 @@
                                                <input type="text" class="form-control" id="tfNomUsuario" placeholder="Usuario" required>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
-                              
+
                             </div>
                             <div class="form-group" id="artAgregadoExitoso" style="margin-bottom: 0px; display: none;">
                                 <label class="col-md-1"></label>
@@ -139,8 +136,8 @@
                             </div>
                             <div class="modal-footer">
                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
-                                   
                                    <button type="submit"  id="btnGuardar" class="btn btn-primary">Guardar</button>
+                                   <button type="submit"  id="btnEditar" class="btn btn-primary">Editar</button>
                             </div>
 
                     </form>
@@ -159,7 +156,7 @@
                             <h4 class="modal-title">Modificar Usuario</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="panel-body">                                    
+                            <div class="panel-body">
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">* Nombres:</label>
                                     <div class="col-md-7">
@@ -201,7 +198,7 @@
                                             <option value="2" >Cargo 2</option>
                                             <option value="3" >Cargo 3</option>
                                         </select>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -251,13 +248,4 @@
   </div>
 </div>
 
-<script src="recursos/sistema/js/instructores.js"></script> 
-
-
-
-
-
-
-
-
-
+<script src="recursos/sistema/js/instructores.js"></script>

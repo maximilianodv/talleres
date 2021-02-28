@@ -28,20 +28,21 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     $espacios="";
 		$sql="";
 		$oDate1 = new DateTime($fechasconvarg["inicio"]);
-		$fechasconv = $oDate1->format("d-m-Y");
+		$fechasconv = $oDate1->format("d-m-Y H:i:s");
 
 		$oDate2 = new DateTime($fechasconvarg["fin"]);
-		$fechafin = $oDate2->format("d-m-Y");
+		$fechafin = $oDate2->format("d-m-Y H:i:s");
 
 		$oDate3 = new DateTime($fechasconvarg["PrInicio"]);
-		$fechaproroga = $oDate3->format("d-m-Y");
+		$fechaproroga = $oDate3->format("d-m-Y H:i:s");
 
 		$oDate4 = new DateTime($fechasconvarg["PrFin"]);
-		$finproroga= $oDate4->format("d-m-Y");
+		$finproroga= $oDate4->format("d-m-Y H:i:s");
 
-		$oDate5 = new DateTime("07-10-2020");
-		$hoy= $oDate5->format("d-m-Y");
-
+		$oDate5 = new DateTime("27-03-2021 23:26:00");
+		$hoy= $oDate5->format("d-m-Y H:i:s");
+		print_r($hoy);
+		print_r($fechafin);
 		$rellenobotoninsc=false;
 		//echo date(Y).'-'.date(m).'-'.date(d)."  ".date(H).":".date(i);
 		$salida="";
@@ -54,8 +55,9 @@ public function mostrar($iniciosesion=null,$periodo=null,$nivel=null,$taller=nul
     }
 
 		$sql="SELECT * FROM TALLERES,ESPACIOS WHERE Convocatoria=$periodo $condicion2 $condicion3 AND ESPACIOS.ClaveConvocatoria=TALLERES.Convocatoria AND ESPACIOS.ClaveNivel=TALLERES.Carrera;";
-		if($fechasconv<=$hoy && $hoy<=$fechafin){
+		if($fechasconv<=$hoy && $hoy<$fechafin){
 							$rellenobotoninsc=true;
+
 		}
 
 	else if($fechaproroga<=$hoy && $hoy<$finproroga ){

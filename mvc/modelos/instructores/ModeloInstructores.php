@@ -43,7 +43,8 @@ class ModeloInstructores extends ConexionBD
           <td>$correo</td>
           <td>$telefono</td>
           <td>
-            <button type='button' data-id='$id' data-clave='$clave' class='btnEditarU  btn btn-primary btn-sm' data-target='#editinstr' data-toggle='modal' >
+            <button type='button' data-id='$id' data-clave='$clave' class='btnEditarU  btn btn-primary btn-sm btnmdl'  data-toggle=modal
+            data-target='#nuevoinstructor' data-tpbt='btnEditar' onclick='modal(this)'>
               <i class='fa fa-edit  fa-lg text-white'  data-toggle='modal' data-target='#editinstr' ></i>
             </button>
             <button type='button' data-id='$id' class='btnEliminar btn btn-danger btn-sm'>

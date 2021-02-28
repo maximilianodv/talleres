@@ -525,6 +525,152 @@ class ModeloConvocatorias extends ConexionBD
        $respuesta['espingmax']=$espingmax;
        return $respuesta;
   }
+  function crearvistas($nivel,$clave){
+      //$ss="CREATE VIEW convo".$nivel." AS SELECT *FROM";
+    $sql=" CREATE VIEW convo".$nivel.$clave." AS SELECT * FROM TALLERES.ESPACIOS WHERE ClaveConvocatoria='".$clave."' AND ClaveNivel='".$nivel."'";
+
+      try{
+
+          if( !$this->conexion->query($sql))
+            {
+          throw new Exception('error!');
+            }
+
+        }
+          catch( Exception $e )
+          {
+
+            return false;
+          }
+
+      return true;
+  }
+  function listatalleredele($nivel,$clave){
+    $sql="CREATE VIEW aeliminar".$nivel.$clave."
+    AS SELECT * FROM TALLERES,convo".$nivel.$clave."
+    WHERE (convo".$nivel.$clave.".min-TALLERES.Espacio)<=0 AND convo".$nivel.$clave.".ClaveConvocatoria=TALLERES.Convocatoria";
+    try{
+      if( !$this->conexion->query($sql))
+          {
+            throw new Exception('error!');
+          }
+
+      }catch( Exception $e )
+      {
+        return false;
+      }
+
+        return true;
+  }
+  function eliminarvistas($nivel,$clave,$tipo){
+    $sql="DROP VIEW ".$tipo.$nivel.$clave;
+
+    try{
+
+        if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+  function programarevet($nivel,$clave,$finconvocatoria){
+    $sql="CREATE EVENT evento".$nivel.$clave."
+          ON SCHEDULE AT '".$finconvocatoria." 01:03:00'
+          DO DELETE TALLERES FROM TALLERES,aeliminar".$nivel.$clave." WHERE TALLERES.id_taller=aeliminar".$nivel.$clave.".id_taller";
+    try{
+      if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+  function deletevest($nivel,$clave,$finconvocatoria,$tipo){
+    $sql="CREATE EVENT ".$tipo.$nivel.$clave."
+          ON SCHEDULE AT '".$finconvocatoria."'
+          DO DROP VIEW ".$tipo.$nivel.$clave."";
+    try{
+      if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+  function deleventoaeliminar($nivel,$clave){
+    $sql="DROP EVENT aeliminar".$nivel.$clave;
+    try{
+      if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+  function deleventoconvo($nivel,$clave){
+    $sql="DROP EVENT convo".$nivel.$clave;
+    try{
+      if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+  function delevento($nivel,$clave){
+    $sql="DROP EVENT evento".$nivel.$clave;
+    try{
+      if( !$this->conexion->query($sql))
+          {
+        throw new Exception('error!');
+          }
+
+      }
+        catch( Exception $e )
+        {
+
+          return false;
+        }
+
+    return true;
+  }
+
 
 
 

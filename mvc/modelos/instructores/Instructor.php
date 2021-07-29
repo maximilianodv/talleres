@@ -8,10 +8,10 @@ class Instructor
   private $correo;
   private $telefono;
   private $id_usuario;
-  
-  
-  
-  public function __construct($idinstructor=null, $nombre=null, $apellidop=null, $apellidom=null,
+
+
+
+public function __construct($idinstructor=null, $nombre=null, $apellidop=null, $apellidom=null,
                               $correo=null,$telefono=null,$id_usuario=null)
   {
     $this->idinstructor = $idinstructor;
@@ -21,9 +21,8 @@ class Instructor
     $this->correo= $correo;
     $this->telefono= $telefono;
     $this->id_usuario= $id_usuario;
-    
-  }
 
+  }
 function getIdInstructor()
 {
   return $this->idinstructor;
@@ -64,7 +63,7 @@ function setNombre($nombre)
 }
 function setApellidoP($apellidop)
 {
-  $this->apellidom=$apellidop;
+  $this->apellidop=$apellidop;
 }
 function setApellidoM($apellidom)
 {

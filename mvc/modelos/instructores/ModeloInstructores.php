@@ -11,14 +11,52 @@ class ModeloInstructores extends ConexionBD
     require_once 'mvc/modelos/instructores/Taller.php';
     require_once 'mvc/modelos/usuarios/Usuario.php';
   }
+  public function datosEditar($idIstructor){
+    $query="SELECT * FROM INSTRUCTORES  inner join USUARIOS on INSTRUCTORES.id_usuario=USUARIOS.id_usuario WHERE id_instructor='$idIstructor'";
 
+    $resultSet=$this->conexion->query($query);
+
+
+    $instructor2 = array();
+    $nombre = array();
+    $apellidop = array();
+    $apellidop = array();
+    $correo = array();
+    $telefono = array();
+    $id_usuario = array();
+    $objeto =new Instructor();
+
+    $row = $resultSet->fetch_array();
+        $instructor2 = $row["id_instructor"];
+        $nombre= $row["Nombre"];
+        $apellidop= $row["ApellidoP"];
+        $apellidom= $row["ApellidoM"];
+        $correo= $row["Correo"];
+        $telefono= $row["Telefono"];
+        $id_usuario= $row["id_usuario"];
+      //  $instructor2=hash('sha512',$instructor2);
+
+        $datos= array( "id_instructor" =>$instructor2,
+                              "Nombre" =>   $nombre,
+                             "ApellidoP" => $apellidop,
+                             "ApellidoM" => $apellidom,
+                             "Correo" => $correo,
+                             "Telefono" => $telefono,
+                             "Nombreusuario" => $row["NombreUsuario"],
+                             "Password" =>$row["Password"]);
+
+
+    return json_encode($datos);
+
+    //$resultSet->fetch_array();
+
+  }
    public function mostrar()
   {
-    $resultSet=$this->conexion->query("SELECT * FROM INSTRUCTORES");
+    $resultSet=$this->conexion->query("SELECT * FROM INSTRUCTORES WHERE status=1");
     $salida = "
-    <table id='example2' class='table table-bordered table-hover'>
-
-    <thead>
+  <table id='tablaInstructores' class='table table-bordered table-hover'>
+<thead>
       <tr>
         <th>Nombre</th>
         <th>Correo</th>
@@ -44,11 +82,11 @@ class ModeloInstructores extends ConexionBD
           <td>$telefono</td>
           <td>
             <button type='button' data-id='$id' data-clave='$clave' class='btnEditarU  btn btn-primary btn-sm btnmdl'  data-toggle=modal
-            data-target='#nuevoinstructor' data-tpbt='btnEditar' onclick='modal(this)'>
-              <i class='fa fa-edit  fa-lg text-white'  data-toggle='modal' data-target='#editinstr' ></i>
+            data-target='#nuevoinstructor' data-tpbt='btnEditar' onclick='modal(this)' data-name='Editar' data-toggle='modal' data-target='#editinstr'>
+              <i class='fa fa-edit  fa-lg text-white'   ></i>
             </button>
-            <button type='button' data-id='$id' class='btnEliminar btn btn-danger btn-sm'>
-              <i class='fa fa-trash  fa-lg text-white'  data-toggle='modal' data-target='#modalconfirmar'></i>
+            <button type='button' data-id='$id' class='btnEliminar btn btn-danger btn-sm' onclick='enviarideliminar($id)' data-toggle='modal' data-target='#modalconfirmar'>
+              <i class='fa fa-trash  fa-lg text-white'></i>
             </button>
 
           </td>
@@ -232,5 +270,69 @@ class ModeloInstructores extends ConexionBD
               //$usuario->setId_Usuario($id_usuario);
           return $id;
   }
+  public function getUsuarioInstru(){
 
+  }
+  public function eliminar($id){
+    
+    $sql="UPDATE INSTRUCTORES SET status=0 WHERE id_instructor='$id'";
+  
+    //la consulta arrojara el numero mayor de la tabla y se sumara 1
+    //ejemplo consulta=17 , 17+1=18, 18 es el nuevo id que se agregara(**())
+      if($this->conexion->query($sql)){
+        return 1;
+      }
+      else{
+        return 0;
+      }
+  }
+  public function modificar($instructor){
+
+    
+    //$this->conexion->autocommit(FALSE);
+    $campos="";
+    $id=$instructor->getIdInstructor();
+    $nombre=$instructor->getNombre();
+    $apellidop=$instructor->getApellidoP();
+    $apellidom=$instructor->getApellidoM();
+    $correo=$instructor->getCorreo();
+    $telefono=$instructor->getTelefono();
+
+    $usuarioinstructor=$instructor->getId_Usuario();
+
+    if($correo==""||$correo=='')
+    {
+      $correo="NULL";
+    }
+    else
+    {
+      $correo="'".$correo."'";
+    }
+    
+    /*$salida.="instructor <br>$id<br>$nombre<br>$apellidop<br>$apellidom<br>$correo<br>$telefono<br>$usuario<br><br>";*/
+
+    $updainstr="UPDATE INSTRUCTORES set Nombre='$nombre',Apellidop='$apellidop',Apellidom='$apellidom',Correo=$correo,Telefono='$telefono' WHERE id_instructor=$id";
+    
+    //$this->conexion->query($updainstr);
+    
+     try{
+
+        if( !$this->conexion->query($updainstr))
+          {
+          throw new Exception('error!');
+          }
+          else
+          {
+            return 0;
+          }
+
+      }
+        catch( Exception $e )
+        {
+          $this->conexion->rollback();
+          return 1;
+        }
+      $this->conexion->commit();
+
+  }
 }

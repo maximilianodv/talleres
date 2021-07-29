@@ -9,12 +9,18 @@ class ControladorInstructores extends Controlador
 		parent::__construct();
 	}
 	public function index()
-	{	$sesion=Session::get_SESSION();
+	{
+		$sesion=Session::get_SESSION();
 		$datos=$this->model->mostrar();
 		$vista=new Vista("mvc/vistas/sistema/instructores/vistaInstructores.php",
 			$datos);
 	}
+	public function datosEditar(){
 
+		$idIstructor=$_POST["idInstructor"];
+		echo  $this->model->datosEditar($idIstructor);
+
+	}
 	public function uno()
 	{
 		$salida="";
@@ -34,6 +40,7 @@ class ControladorInstructores extends Controlador
     	echo $this->model->mostrar();
 
 	}
+
 	public function registrar()
 	{
 		$resultado="";
@@ -62,29 +69,40 @@ class ControladorInstructores extends Controlador
 
 	public function eliminar()
 	{
-		$id=$_POST["id"];
+		//print_r("entra por aqui");
+		
+		$id=$_POST["idInstructor"];
 		if($this->model->eliminar($id)==1)
 		{
-			echo $this->model->mostrartabla();
+			echo $this->model->mostrar();
 		}
 		else
 		{
-			echo "0";
+			echo $this->model->mostrar();
 		}
 
 	}
 	public function modificar()
-	{		$id=$_POST["id"];
+	{
+			$id=$_POST["oldInstructor"];
+			
+			/*
+			$this->model->modificar($id,$nombre,$apellidos,$nombreusuario,$correo,$contrasena,$cargo,$actcontrasena,$fecha);*/
 			$nombre=$_POST["nombre"];
-			$apellidos=$_POST["apellidos"];
-			$nombreusuario=$_POST["nombreusuario"];
+			$apellidop=$_POST["apellidop"];
+			$apellidom=$_POST["apellidom"];
 			$correo=$_POST["correo"];
-			$contrasena=$_POST["contrasena"];
-			$cargo=$_POST["cargo"];
-			$actcontrasena=$_POST["actcontrasena"];
-			$fecha=$_POST["fecha"];
-			$this->model->modificar($id,$nombre,$apellidos,$nombreusuario,$correo,$contrasena,$cargo,$actcontrasena,$fecha);
-			echo $this->model->actualizarfila($id);
+			$telefono=$_POST["telefono"];
+			$id_usuario=$_POST["usuario"];
+
+			
+			$instructor=new Instructor($id, $nombre, $apellidop, $apellidom,$correo,$telefono,$id_usuario);
+			
+			
+			$resul=$this->model->modificar($instructor);
+
+			echo $this->model->mostrar();
+			
 	}
 	public function cambiarestado()
 	{

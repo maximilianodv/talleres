@@ -51,7 +51,7 @@ class ModeloConvocatorias extends ConexionBD
   }
   public function comboperiodo()
   {
-    $consulta=$this->conexion->query("SELECT * FROM CONVOCATORIAS ORDER BY ClaveConvocatoria DESC");
+    $consulta=$this->conexion->query("SELECT * FROM CONVOCATORIAS WHERE status=1 ORDER BY ClaveConvocatoria DESC");
     $salida="<label for='cbPeriodo'>Periodo</label>
     <select class='form-control' id='cbPeriodo'>";
       while ($row=$consulta->fetch_array())
@@ -113,7 +113,7 @@ class ModeloConvocatorias extends ConexionBD
   public function tblConvocatorias()
   {
 
-    $resultSet=$this->conexion->query("SELECT * FROM CONVOCATORIAS ORDER BY ClaveConvocatoria DESC");
+    $resultSet=$this->conexion->query("SELECT * FROM CONVOCATORIAS WHERE status=1 ORDER BY ClaveConvocatoria DESC");
     $salida = "";
     /*<td><input type='checkbox' id='{$clave}' class='activar' data-id='{$clave}' $estado></td>*/
      $salida= "<div class='table-responsive text-nowrap'>
@@ -431,25 +431,26 @@ class ModeloConvocatorias extends ConexionBD
       $this->conexion->autocommit(FALSE);
       $cont=0;
 
-      $eliminar3="DELETE FROM GRADO WHERE ClaveConvocatoria=$clave";
+      /*$eliminar3="DELETE FROM GRADO WHERE ClaveConvocatoria=$clave";
       //echo $eliminar;
        if($this->conexion->query($eliminar3))
           {
             $cont=$cont+1;
-          }
+          }*/
       $eliminar2="DELETE FROM ESPACIOS WHERE ClaveConvocatoria=$clave";
          if($this->conexion->query($eliminar2))
           {
             $cont=$cont+1;
           }
-      $eliminar="DELETE FROM CONVOCATORIAS WHERE ClaveConvocatoria=$clave";
+      $eliminar="UPDATE CONVOCATORIAS set status=0 WHERE ClaveConvocatoria=$clave";
       //echo $eliminar;
          if($this->conexion->query($eliminar))
           {
             $cont=$cont+1;
           }
 
-      if($cont==3)
+      //if($cont==3)
+      if($cont==2)
       {
         $this->conexion->commit();
       }

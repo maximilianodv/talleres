@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col col-md-2 form-group">
     <button type="button" class="btn btn-primary form-control btnmdl" data-toggle="modal"
-    data-target="#nuevoinstructor" data-tpbt='btnGuardar' onclick="modal(this)">
-        Agregar Instructor
+    data-target="#nuevoinstructor" data-tpbt='btnGuardar' onclick="modal(this)" data-name="Agregar Instructor">
+        Agregar
     </button>
   </div>
 
@@ -22,7 +22,6 @@
 
                         <div class="modal-header">
                             <h5 class="modal-titleinst" id="agregarlabel" class="titulo">Agregar Instructor</h5>
-                            <h5 class="modal-titleinst" id="editarlabel"  class="titulo">Editar Instructor</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -136,8 +135,8 @@
                             </div>
                             <div class="modal-footer">
                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
-                                   <button type="submit"  id="btnGuardar" class="btn btn-primary">Guardar</button>
-                                   <button type="submit"  id="btnEditar" class="btn btn-primary">Editar</button>
+                                   <button type="submit"  id="btnGuardar" class="btn btn-primary" >Guardar</button>
+                                   <input id="idInstructor" class="form-control" name="idInstructor" type="hidden" value="">
                             </div>
 
                     </form>
@@ -236,13 +235,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+        
       </div>
         <div class="modal-body">
-            <p id="mensaje"></p>
+            <p id="mensaje">Desea eliminar al instructor</p>
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
-        <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+        <button type="button" class="btn btn-default" id="modal-btn-si" onclick="eliminar(this)">Si</button>
+        <button type="button" class="btn btn-primary" id="modal-btn-no" onclick="cancelar(this)">No</button>
       </div>
     </div>
   </div>
